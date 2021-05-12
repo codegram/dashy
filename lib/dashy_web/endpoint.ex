@@ -1,16 +1,16 @@
-defmodule PhoenixStarterWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :phoenix_starter
+defmodule DashyWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :dashy
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_phoenix_starter_key",
+    key: "_dashy_key",
     signing_salt: "WKPvdfoQ"
   ]
 
-  socket "/socket", PhoenixStarterWeb.UserSocket,
+  socket "/socket", DashyWeb.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -22,7 +22,7 @@ defmodule PhoenixStarterWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :phoenix_starter,
+    from: :dashy,
     gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
@@ -32,7 +32,7 @@ defmodule PhoenixStarterWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :phoenix_starter
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :dashy
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -50,5 +50,5 @@ defmodule PhoenixStarterWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug PhoenixStarterWeb.Router
+  plug DashyWeb.Router
 end

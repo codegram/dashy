@@ -1,5 +1,5 @@
-defmodule PhoenixStarterWeb.PageLiveTest do
-  use PhoenixStarterWeb.ConnCase
+defmodule DashyWeb.PageLiveTest do
+  use DashyWeb.ConnCase
 
   import Phoenix.LiveViewTest
 

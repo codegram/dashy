@@ -1,11 +1,11 @@
-defmodule PhoenixStarterWeb.Router do
-  use PhoenixStarterWeb, :router
+defmodule DashyWeb.Router do
+  use DashyWeb, :router
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {PhoenixStarterWeb.LayoutView, :root}
+    plug :put_root_layout, {DashyWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
   end
@@ -14,14 +14,14 @@ defmodule PhoenixStarterWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", PhoenixStarterWeb do
+  scope "/", DashyWeb do
     pipe_through :browser
 
     live "/", PageLive, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", PhoenixStarterWeb do
+  # scope "/api", DashyWeb do
   #   pipe_through :api
   # end
 
@@ -37,7 +37,7 @@ defmodule PhoenixStarterWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: PhoenixStarterWeb.Telemetry
+      live_dashboard "/dashboard", metrics: DashyWeb.Telemetry
     end
   end
 end

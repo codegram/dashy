@@ -1,8 +1,8 @@
-# PhoenixStarter
+# Dashy
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codegram/phoenix_starter)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/codegram/dashy)
 
-[![CI](https://github.com/codegram/phoenix_starter/actions/workflows/ci.yml/badge.svg)](https://github.com/codegram/phoenix_starter/actions/workflows/ci.yml) [![Docs](https://github.com/codegram/phoenix_starter/actions/workflows/docs.yml/badge.svg)](https://codegram.github.io/phoenix_starter)
+[![CI](https://github.com/codegram/dashy/actions/workflows/ci.yml/badge.svg)](https://github.com/codegram/dashy/actions/workflows/ci.yml) [![Docs](https://github.com/codegram/dashy/actions/workflows/docs.yml/badge.svg)](https://codegram.github.io/dashy)
 
 ## Setting up your development environment
 
@@ -36,7 +36,7 @@ After booting Visual Studio, you'll need to open the Command Palette (Shift+Cmd+
 
 ### Standard Local Development Environment
 
-As PhoenixStarter is just a standard Elixir/Phoenix application, you can of course boot it using a local Elixir version installed in your machine.
+As Dashy is just a standard Elixir/Phoenix application, you can of course boot it using a local Elixir version installed in your machine.
 
 In order to do so, you'll need to:
 
@@ -57,7 +57,7 @@ This will download Elixir and Node dependencies, compile them, execute database 
 
 ## Starting your server
 
-Assuming you've got PhoenixStarter running in either of the three ways described earlier, you should now be able to start your Phoenix server by executing the following command:
+Assuming you've got Dashy running in either of the three ways described earlier, you should now be able to start your Phoenix server by executing the following command:
 
 ```
 $ mix run priv/repo/dev_seeds.exs

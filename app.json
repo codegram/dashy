@@ -1,6 +1,6 @@
 {
-  "name": "PhoenixStarter",
-  "description": "PhoenixStarter application",
+  "name": "Dashy",
+  "description": "Dashy application",
   "keywords": [],
   "success_url": "/",
   "scripts": {

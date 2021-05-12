@@ -7,15 +7,15 @@
 # General application configuration
 use Mix.Config
 
-config :phoenix_starter,
-  ecto_repos: [PhoenixStarter.Repo]
+config :dashy,
+  ecto_repos: [Dashy.Repo]
 
 # Configures the endpoint
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :dashy, DashyWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "aolxoORjdoDyW02zzqvJvVDSe3zaT/Gimz5o5CHsao8oz5JYVLtUl3xEpJ2wbqBP",
-  render_errors: [view: PhoenixStarterWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: PhoenixStarter.PubSub,
+  render_errors: [view: DashyWeb.ErrorView, accepts: ~w(html json), layout: false],
+  pubsub_server: Dashy.PubSub,
   live_view: [signing_salt: "y4Dah9+Z"]
 
 # Configures Elixir's Logger

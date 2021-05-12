@@ -1,12 +1,12 @@
-defmodule PhoenixStarterWeb do
+defmodule DashyWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use PhoenixStarterWeb, :controller
-      use PhoenixStarterWeb, :view
+      use DashyWeb, :controller
+      use DashyWeb, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,19 +19,19 @@ defmodule PhoenixStarterWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: PhoenixStarterWeb
+      use Phoenix.Controller, namespace: DashyWeb
 
       import Plug.Conn
-      import PhoenixStarterWeb.Gettext
-      alias PhoenixStarterWeb.Router.Helpers, as: Routes
+      import DashyWeb.Gettext
+      alias DashyWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/phoenix_starter_web/templates",
-        namespace: PhoenixStarterWeb
+        root: "lib/dashy_web/templates",
+        namespace: DashyWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -45,7 +45,7 @@ defmodule PhoenixStarterWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {PhoenixStarterWeb.LayoutView, "live.html"}
+        layout: {DashyWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
     end
@@ -72,7 +72,7 @@ defmodule PhoenixStarterWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import PhoenixStarterWeb.Gettext
+      import DashyWeb.Gettext
     end
   end
 
@@ -87,9 +87,9 @@ defmodule PhoenixStarterWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
-      import PhoenixStarterWeb.ErrorHelpers
-      import PhoenixStarterWeb.Gettext
-      alias PhoenixStarterWeb.Router.Helpers, as: Routes
+      import DashyWeb.ErrorHelpers
+      import DashyWeb.Gettext
+      alias DashyWeb.Router.Helpers, as: Routes
     end
   end
 

@@ -1,4 +1,4 @@
-defmodule PhoenixStarterWeb.Telemetry do
+defmodule DashyWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -31,11 +31,11 @@ defmodule PhoenixStarterWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("phoenix_starter.repo.query.total_time", unit: {:native, :millisecond}),
-      summary("phoenix_starter.repo.query.decode_time", unit: {:native, :millisecond}),
-      summary("phoenix_starter.repo.query.query_time", unit: {:native, :millisecond}),
-      summary("phoenix_starter.repo.query.queue_time", unit: {:native, :millisecond}),
-      summary("phoenix_starter.repo.query.idle_time", unit: {:native, :millisecond}),
+      summary("dashy.repo.query.total_time", unit: {:native, :millisecond}),
+      summary("dashy.repo.query.decode_time", unit: {:native, :millisecond}),
+      summary("dashy.repo.query.query_time", unit: {:native, :millisecond}),
+      summary("dashy.repo.query.queue_time", unit: {:native, :millisecond}),
+      summary("dashy.repo.query.idle_time", unit: {:native, :millisecond}),
 
       # VM Metrics
       summary("vm.memory.total", unit: {:byte, :kilobyte}),
@@ -49,7 +49,7 @@ defmodule PhoenixStarterWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {PhoenixStarterWeb, :count_users, []}
+      # {DashyWeb, :count_users, []}
     ]
   end
 end

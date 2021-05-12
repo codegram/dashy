@@ -1,7 +1,7 @@
 use Mix.Config
 
 # Configure your database
-config :phoenix_starter, PhoenixStarter.Repo,
+config :dashy, Dashy.Repo,
   username: "postgres",
   password: "postgres",
   database: "database",
@@ -15,7 +15,7 @@ config :phoenix_starter, PhoenixStarter.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :dashy, DashyWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -56,13 +56,13 @@ config :phoenix_starter, PhoenixStarterWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :phoenix_starter, PhoenixStarterWeb.Endpoint,
+config :dashy, DashyWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/phoenix_starter_web/(live|views)/.*(ex)$",
-      ~r"lib/phoenix_starter_web/templates/.*(eex)$"
+      ~r"lib/dashy_web/(live|views)/.*(ex)$",
+      ~r"lib/dashy_web/templates/.*(eex)$"
     ]
   ]
 

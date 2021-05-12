@@ -1,5 +1,5 @@
-defmodule PhoenixStarterWeb.PageLive do
-  use PhoenixStarterWeb, :live_view
+defmodule DashyWeb.PageLive do
+  use DashyWeb, :live_view
 
   @impl true
   def mount(_params, _session, socket) do
@@ -26,7 +26,7 @@ defmodule PhoenixStarterWeb.PageLive do
   end
 
   defp search(query) do
-    if not PhoenixStarterWeb.Endpoint.config(:code_reloader) do
+    if not DashyWeb.Endpoint.config(:code_reloader) do
       raise "action disabled when not in development"
     end
 

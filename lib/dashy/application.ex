@@ -1,4 +1,4 @@
-defmodule PhoenixStarter.Application do
+defmodule Dashy.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -8,27 +8,27 @@ defmodule PhoenixStarter.Application do
   def start(_type, _args) do
     children = [
       # Start the Ecto repository
-      PhoenixStarter.Repo,
+      Dashy.Repo,
       # Start the Telemetry supervisor
-      PhoenixStarterWeb.Telemetry,
+      DashyWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: PhoenixStarter.PubSub},
+      {Phoenix.PubSub, name: Dashy.PubSub},
       # Start the Endpoint (http/https)
-      PhoenixStarterWeb.Endpoint
-      # Start a worker by calling: PhoenixStarter.Worker.start_link(arg)
-      # {PhoenixStarter.Worker, arg}
+      DashyWeb.Endpoint
+      # Start a worker by calling: Dashy.Worker.start_link(arg)
+      # {Dashy.Worker, arg}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: PhoenixStarter.Supervisor]
+    opts = [strategy: :one_for_one, name: Dashy.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    PhoenixStarterWeb.Endpoint.config_change(changed, removed)
+    DashyWeb.Endpoint.config_change(changed, removed)
     :ok
   end
 end

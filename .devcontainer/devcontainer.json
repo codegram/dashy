@@ -1,6 +1,8 @@
 {
-  "name": "Phoenix Starter",
-  "dockerComposeFile": ["docker-compose.yml"],
+  "name": "Dashy",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
   "service": "phoenix",
   "workspaceFolder": "/home/vscode/app",
   "extensions": [
@@ -18,6 +20,8 @@
   "settings": {
     "terminal.integrated.shell.linux": "/usr/bin/zsh"
   },
-  "forwardPorts": [4000],
+  "forwardPorts": [
+    4000
+  ],
   "postCreateCommand": "bash .devcontainer/setup-dev.sh"
 }
