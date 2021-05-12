@@ -246,14 +246,3 @@ jobs:
         working-directory: ./assets
       - run: npm run lint
         working-directory: ./assets
-      - name: Restore npm cache
-        uses: actions/cache@v2
-        with:
-          path: frontend/node_modules
-          key: ${{ runner.os }}-npm-v3-${{ hashFiles('frontend/package-lock.json') }}
-          restore-keys: ${{ runner.os }}-npm-v3-
-      - name: Install NodeJS deps
-        run: npm ci
-        working-directory: ./frontend
-      - run: npm run lint
-        working-directory: ./frontend
