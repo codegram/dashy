@@ -1,0 +1,49 @@
+{
+  "css.validate": false,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "stylelint.configBasedir": "assets",
+  "files.associations": {
+    "*.css": "postcss"
+  },
+  "eslint.workingDirectories": ["./assets"],
+  "eslint.nodePath": "assets",
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[postcss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "[elixir]": {
+    "rewrap.autoWrap.enabled": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "elixir": "javascript"
+  },
+  "elixirLS.suggestSpecs": false,
+  "elixirLS.enableTestLenses": true,
+  "elixir.credo.configurationFile": ".credo.exs",
+  "elixir.credo.ignoreWarningMessages": true,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.experimental.classRegex": ["class:\\s*\"([^\"]*)\""],
+  "headwind.classRegex": {
+    "html": "\\bclass\\s*[=:]\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
+    "elixir": "\\bclass\\s*:\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
+    "css": "\\B@apply\\s+([_a-zA-Z0-9\\s\\-\\:\\/]+);",
+    "javascript": "(?:\\bclassName\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\'])|(?:\\btw\\s*`([_a-zA-Z0-9\\s\\-\\:\\/]*)`)"
+  }
+}

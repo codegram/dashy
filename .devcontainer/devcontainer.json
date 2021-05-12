@@ -1,0 +1,23 @@
+{
+  "name": "Phoenix Starter",
+  "dockerComposeFile": ["docker-compose.yml"],
+  "service": "phoenix",
+  "workspaceFolder": "/home/vscode/app",
+  "extensions": [
+    "JakeBecker.elixir-ls",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "bradlc.vscode-tailwindcss",
+    "adrianwilczynski.alpine-js-intellisense",
+    "stylelint.vscode-stylelint",
+    "ms-azuretools.vscode-docker",
+    "pantajoe.vscode-elixir-credo",
+    "stkb.rewrap",
+    "samuel-pordeus.elixir-test"
+  ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/usr/bin/zsh"
+  },
+  "forwardPorts": [4000],
+  "postCreateCommand": "bash .devcontainer/setup-dev.sh"
+}
