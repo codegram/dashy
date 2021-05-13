@@ -51,6 +51,7 @@ defmodule Dashy.MixProject do
       {:mix_test_watch, "~> 1.0", only: :dev, runtime: false},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.7.0"},
       {:surface, "~> 0.4.0"}
     ]
   end
