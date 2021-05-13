@@ -62,7 +62,8 @@ config :dashy, DashyWeb.Endpoint,
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/dashy_web/(live|views)/.*(ex)$",
-      ~r"lib/dashy_web/templates/.*(eex)$"
+      ~r"lib/dashy_web/templates/.*(eex)$",
+      ~r"lib/dashy_web/live/.*(sface)$"
     ]
   ]
 
