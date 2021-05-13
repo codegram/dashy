@@ -1,6 +1,9 @@
 404.html
 Dashy.Repo.html
 Dashy.html
+DashyWeb.Components.Card.html
+DashyWeb.Components.CardContent.html
+DashyWeb.Components.CardTitle.html
 DashyWeb.Endpoint.html
 DashyWeb.ErrorHelpers.html
 DashyWeb.ErrorView.html
@@ -10,6 +13,7 @@ DashyWeb.PageLive.html
 DashyWeb.Router.Helpers.html
 DashyWeb.Router.html
 DashyWeb.Telemetry.html
+DashyWeb.UILive.html
 DashyWeb.UserSocket.html
 DashyWeb.html
 api-reference.html
@@ -19,7 +23,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-6056c5ca2c.js
-dist/sidebar_items-cc9b0f6d16.js
+dist/search_items-9b39df7ce1.js
+dist/sidebar_items-db950d18f8.js
 index.html
 search.html
