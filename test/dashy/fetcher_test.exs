@@ -13,5 +13,10 @@ defmodule Dashy.FetcherTest do
 
       assert 3 == Repo.all(Workflow) |> Enum.count()
     end
+
+    test "handles errors" do
+      assert {:error, _} =
+               Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
+    end
   end
 end
