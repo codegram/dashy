@@ -24,6 +24,7 @@ defmodule Dashy.DataCase do
       import Ecto.Changeset
       import Ecto.Query
       import Dashy.DataCase
+      import Dashy.Factory
     end
   end
 
