@@ -1,6 +1,3 @@
-# <div class="-mt-px px-4 py-5">
-#           <slot/>
-#         </div>
 defmodule DashyWeb.Components.CardContent do
   use Surface.Component
 

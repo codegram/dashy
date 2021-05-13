@@ -2,7 +2,7 @@ defmodule DashyWeb.Components.CardTitle do
   use Surface.Component
 
   @doc "The title of the card"
-  prop title, :string, required: false
+  prop title, :string, required: true
 
   @doc "The subtitle of the card"
   prop subtitle, :string, required: false
@@ -15,7 +15,7 @@ defmodule DashyWeb.Components.CardTitle do
           <h3 class="text-lg leading-6 font-medium text-gray-900">
             {{ @title }}
           </h3>
-          <p class="mt-1 text-sm text-gray-500">
+          <p :if={{@subtitle}}class="mt-1 text-sm text-gray-500">
             {{ @subtitle }}
           </p>
         </div>
