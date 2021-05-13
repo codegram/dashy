@@ -3,6 +3,7 @@ defmodule Dashy.TestFetchers.WorkflowsFetcher do
 
   import Dashy.Factory
 
+  @impl GitHubFetcher
   def get(_repo) do
     workflows = [
       params_for(:workflow),

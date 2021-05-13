@@ -5,6 +5,7 @@ defmodule Dashy.Fetchers.WorkflowsFetcher do
     id node_id name path state created_at updated_at
   )
 
+  @impl GitHubFetcher
   def get(repo) do
     case HTTPoison.get(url(repo)) do
       {:ok, response} -> process(response.body)
