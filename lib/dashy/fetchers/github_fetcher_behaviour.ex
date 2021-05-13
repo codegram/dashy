@@ -1,3 +1,3 @@
 defmodule GitHubFetcher do
-  @callback get(String.t()) :: {:ok, %{body: any()}} | {:error, any()}
+  @callback get(String.t()) :: %{body: any() | [any(), ...]} | {:error, any()}
 end
