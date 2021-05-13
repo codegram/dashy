@@ -29,14 +29,14 @@ defmodule DashyWeb.UILive do
       <div class="mt-6">
         <h2>Buttons</h2>
         <div>
-          <Button text="Primary Button" click="button-event" value="1" />
-          <Button text="Warning Button" click="button-event" value="1" color="warning" />
-          <Button text="Alert Button" click="button-event" value="1" color="alert" />
+          <Button click="button-event" value="1">Primary Button</Button>
+          <Button click="button-event" value="1" color="warning">Warning Button</Button>
+          <Button click="button-event" value="1" color="alert">Alert Button</Button>
         </div>
         <div class="mt-4">
-          <Button text="Primary Button" click="button-event" value="1" class="secondary" />
-          <Button text="Warning Button" click="button-event" value="1" color="warning" class="secondary" />
-          <Button text="Alert Button" click="button-event" value="1" color="alert" class="secondary" />
+          <Button click="button-event" value="1" background="secondary">Primary Button</Button>
+          <Button click="button-event" value="1" color="warning" background="secondary">Warning Button</Button>
+          <Button click="button-event" value="1" color="alert" background="secondary">Alert Button</Button>
         </div>
       </div>
     </div>
@@ -44,8 +44,9 @@ defmodule DashyWeb.UILive do
   end
 
   @impl true
-  def handle_event("button-event", params, socket) do
-    IO.inspect(params)
+  def handle_event("button-event", %{"val" => val}, socket) do
+    require Logger
+    Logger.debug(val)
     {:noreply, socket}
   end
 end
