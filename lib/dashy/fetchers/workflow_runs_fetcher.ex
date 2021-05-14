@@ -59,7 +59,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
     workflow_run
     |> Map.take(@expected_fields)
     |> Map.new(fn {k, v} -> {String.to_atom(rename_key(k)), v} end)
-    |> Map.merge(%{raw_data: workflow_run})
+    |> Map.merge(%{metadata: workflow_run})
   end
 
   defp parse_workflow_run(_workflow_run, _branch), do: nil
