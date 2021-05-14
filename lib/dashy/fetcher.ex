@@ -2,6 +2,7 @@ defmodule Dashy.Fetcher do
   alias Dashy.Workflows
   alias Dashy.WorkflowRuns
   alias Dashy.Fetchers.WorkflowsFetcher
+  alias Dashy.Fetchers.WorkflowRunsFetcher
 
   def update_workflows(repo, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowsFetcher)

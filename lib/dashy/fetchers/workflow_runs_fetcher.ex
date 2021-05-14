@@ -14,7 +14,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
   @default_branch "develop"
 
   @expected_fields ~w(
-    id node_id name conclusion status created_at updated_at
+    id node_id name conclusion status created_at updated_at workflow_id
   )
 
   @impl GitHubWorkflowRunsFetcher
@@ -24,7 +24,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
 
   defp get(repo, branch, current_state, page: page, at_least: limit) do
     if Enum.count(current_state) >= limit do
-      current_state
+      %{body: current_state}
     else
       url = build_url(repo, branch, page)
 

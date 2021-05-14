@@ -10,6 +10,6 @@ defmodule Dashy.WorkflowRuns do
       workflow_run -> workflow_run
     end
     |> WorkflowRun.changeset(attrs)
-    |> Repo.insert_or_update()
+    |> Repo.insert_or_update!()
   end
 end
