@@ -1,7 +1,7 @@
 defmodule Dashy.TestFetchers.ErroredFetcher do
-  @behaviour GitHubFetcher
+  @behaviour GitHubWorkflowsFetcher
 
-  @impl GitHubFetcher
+  @impl GitHubWorkflowsFetcher
   def get(_repo) do
     {:error, "whoops"}
   end

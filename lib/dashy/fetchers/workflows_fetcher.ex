@@ -1,15 +1,14 @@
 defmodule Dashy.Fetchers.WorkflowsFetcher do
-  @behaviour GitHubFetcher
+  @behaviour GitHubWorkflowsFetcher
 
   @expected_fields ~w(
     id node_id name path state created_at updated_at
   )
 
-  @impl GitHubFetcher
+  @impl GitHubWorkflowsFetcher
   def get(repo) do
-    case HTTPoison.get(url(repo)) do
-      {:ok, %{status_code: 404} = response} -> {:error, response}
-      {:ok, %{status_code: 200} = response} -> process(response.body)
+    case GitHubClient.get(url(repo)) do
+      {:ok, response} -> process(response.body)
       {:error, _} = err -> err
     end
   end
