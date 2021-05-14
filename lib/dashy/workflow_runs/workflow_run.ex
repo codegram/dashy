@@ -17,7 +17,7 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
   @doc false
   def changeset(workflow, attrs) do
     workflow
-    |> cast(attrs, [:external_id, :name, :node_id, :status, :conclusion, :workflow_id])
+    |> cast(attrs, [:external_id, :name, :node_id, :status, :conclusion, :workflow_id, :metadata])
     |> validate_required([:external_id, :name, :node_id, :status, :conclusion, :workflow_id])
     |> unique_constraint(:external_id)
   end

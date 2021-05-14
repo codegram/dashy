@@ -31,6 +31,7 @@ defmodule Dashy.FetcherTest do
       assert 2 == workflow_runs |> Enum.count()
 
       assert %Workflow{} = workflow_run |> Repo.preload(:workflow) |> Map.get(:workflow)
+      assert %{"foo" => 1} = workflow_run.metadata
     end
 
     test "handles errors" do
