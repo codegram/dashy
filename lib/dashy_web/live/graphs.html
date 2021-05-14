@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Chart.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.26.0/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.0.0/dist/chartjs-adapter-luxon.min.js"></script>
+
+    <style>
+      .grid-container {
+        max-width: 75%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 4rem 2rem;
+        grid-template-areas:
+          "runs runs runs runs"
+          "parts parts parts parts_list"
+      }
+      .runs { grid-area: runs; }
+      .parts { grid-area: parts; }
+      .parts_list { grid-area: parts_list; }
+
+      .part_name {
+        text-transform: capitalize;
+        font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        font-size: 0.9rem;
+        padding: 1px;
+      }
+      .part_name:hover span {
+        text-decoration: underline;
+      }
+      .part_name span {
+        color: black;
+      }
+      .part_name a {
+        text-decoration: none;
+        font-size: 0.7rem;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="grid-container">
+      <div class="runs"><canvas id="runs"></canvas></div>
+      <div class="parts"><canvas id="parts"></canvas></div>
+      <div class="parts_list">
+        <div id="parts_list">
+
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const RUNS = 50;
+      const PARTS_DAYS = 15;
+
+      // FAKE DATA
+      var time = Date.now();
+      const lastRuns = Array.from(Array(RUNS).keys()).map(()=>{
+        time -= Math.random()*1_000_000;
+        if (Math.random() < 0.9) {
+          status = 'success';
+        } else if (Math.random() < 0.5) {
+          status = 'error';
+        } else {
+          status = 'cancelled';
+        }
+
+        const seconds = Array.from(Array(100).keys()).map(() => Math.random() * 10 | 0).reduce((a,b) => a+b);
+
+        return {
+          time: (new Date(time)).toLocaleString(),
+          seconds,
+          status: status,
+          minutes: seconds / 60,
+          link: 'https://github.com/decidim/decidim/commit/d3b88afe90e5643848e94ef13ee1e850bbc01e2d'
+        }
+      }).reverse();
+
+      const partsInfo = {};
+
+      var time = Date.now();
+      const times = [];
+
+      while (time > Date.now() - PARTS_DAYS * 24 * 60 * 60 * 1_000) {
+        time -= Math.random()*12*60*60*1_000;
+        times.push(time);
+      }
+
+      const fakePartNames = ["accountability", "admin", "api", "assemblies", "blogs", "budgets", "comments", "conferences", "consultations", "core", "debates", "dev", "elections", "forms", "generators", "initiatives", "meetings", "pages", "participatory_processes", "proposals", "sortitions", "surveys", "system", "templates", "verifications"];
+      for (var i in fakePartNames) {
+        var seconds = Array.from(Array(10).keys()).map(() => Math.random() * 100 | 0).reduce((a,b) => a+b);
+
+        partsInfo[fakePartNames[i]] = times.map((time) => {
+          partTime = time + Math.random() * 30 * 60 * 1_000;
+          seconds += (Math.random() - 0.5) * (Array.from(Array(10).keys()).map(() => Math.random() * 2 | 0).reduce((a,b) => a+b) * 10) | 0;
+          return {
+            name: fakePartNames[i],
+            time: (new Date(partTime)).toISOString(),
+            seconds,
+            minutes: seconds / 60,
+            link: 'https://github.com/decidim/decidim/actions/runs/834489205'
+          }
+        }).reverse();
+      }
+    </script>
+
+    <script>
+      // LAST RUNS GRAPH
+      const COLORS = {
+        success: '#3333FFCC',
+        error: '#FF3333CC',
+        cancelled: '#999999CC'
+      }
+
+      function colorize(ctx) {
+        return COLORS[ctx.raw.status];
+      }
+
+      function toTime(ctx) {
+        return secondsToHms(ctx.parsed.y * 60);
+      }
+
+      function visitRun(event, array){
+        if (array[0]) {
+          window.open(lastRuns[array[0].index].link);
+        }
+      }
+
+      const runsData = {
+        labels: lastRuns.map((run) => run.time),
+        datasets: [{
+          data: lastRuns,
+          borderRadius: 2
+        }]
+      };
+
+      function secondsToHms(d) {
+        d = Number(d);
+        var h = Math.floor(d / 3600);
+        var m = Math.floor(d % 3600 / 60);
+        var s = Math.floor(d % 3600 % 60);
+
+        var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+        var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+        var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+        return hDisplay + mDisplay + sDisplay;
+      }
+
+      const runsConfig = {
+        type: 'bar',
+        data: runsData,
+        options: {
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Run'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Minutes'
+              }
+            }
+          },
+          plugins: {
+            legend: false,
+            tooltip: {
+              callbacks: {
+                beforeTitle: (ctx) => ctx[0].raw.status.toUpperCase(),
+                label: toTime
+              }
+            }
+          },
+          elements: {
+            bar: {
+              backgroundColor: colorize
+            }
+          },
+          parsing: {
+            xAxisKey: 'minutes',
+            yAxisKey: 'minutes'
+          },
+          onClick: visitRun
+        }
+      };
+
+      var runs = new Chart(
+        document.getElementById('runs'),
+        runsConfig
+      );
+    </script>
+
+    <script>
+      function generateColors(total) {
+        const result = [];
+        for (var i=0; i<total; i++) {
+          result[i] = `hsl(${360/total*i}, ${25 + 25 * (i%3)}%, ${75 - 25 * (i%3)}%)`;
+        }
+        return result;
+      }
+
+      // PARTS GRAPH
+      const $partsList = document.getElementById("parts_list");
+      const partNames = Object.keys(partsInfo);
+
+      const LINE_COLORS = generateColors(partNames.length);
+
+      $partsList.innerHTML = "<ul>";
+      for (var index in partNames) {
+        const partName = partNames[index];
+        $partsList.innerHTML += `<li class="part_name" data-slug="${partName}" style="color: ${LINE_COLORS[index]}"><span>${partName}</span> <a href="#${partName}">&gt;&gt;</a></li>`;
+      }
+      $partsList.innerHTML += "</ul>";
+
+      Object.values(document.getElementsByClassName("part_name")).forEach((part) => {
+        part.addEventListener("mouseover", (e) => {
+          window.partNameFocus = e.currentTarget.dataset.slug;
+          parts.update();
+        })
+      });
+      $partsList.addEventListener("mouseout", (e) => {
+        window.partNameFocus = null;
+        parts.update();
+      })
+
+      function showPartColor(colorIndex) {
+        return () => {
+          if (window.partNameFocus && partNames[colorIndex] != window.partNameFocus) {
+            return LINE_COLORS[colorIndex] + "11";
+          } else {
+            return LINE_COLORS[colorIndex];
+          }
+        }
+      }
+
+      function showPartBorderWidth(colorIndex) {
+        return () => {
+          if (partNames[colorIndex] == window.partNameFocus) {
+            return 2;
+          } else {
+            return 1;
+          }
+        }
+      }
+
+      var colorIndex = 0;
+      const partsDatasets = partNames.map((partName) => {
+        return {
+          label: partName,
+          data: partsInfo[partName],
+          cubicInterpolationMode: 'monotone',
+          pointBackgroundColor: showPartColor(colorIndex),
+          borderColor: showPartColor(colorIndex),
+          borderWidth: showPartBorderWidth(colorIndex++),
+          tension: 0.2,
+          pointStyle: 'circle',
+          pointBorderWidth: 0,
+          pointRadius: 2
+        }
+      });
+
+      const partsData = {
+        datasets: partsDatasets
+      };
+
+      function visitPart(event, array){
+        if (array[0]) {
+          window.open(partsInfo[partNames[array[0].datasetIndex]][array[0].index].link);
+        }
+      }
+
+      const partsConfig = {
+        type: 'line',
+        data: partsData,
+        options: {
+          animation: false,
+          scales: {
+            x: {
+              type: 'time',
+              time: {
+                tooltipFormat: 'DD T'
+              },
+              title: {
+                display: true,
+                text: 'Date'
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Minutes'
+              }
+            }
+          },
+          plugins: {
+            legend: false,
+            tooltip: {
+              callbacks: {
+                beforeTitle: (ctx) => ctx[0].raw.name.toUpperCase(),
+                label: toTime
+              }
+            }
+          },
+          parsing: {
+            xAxisKey: 'time',
+            yAxisKey: 'minutes'
+          },
+          onClick: visitPart
+        }
+      };
+
+      var parts = new Chart(
+        document.getElementById('parts'),
+        partsConfig
+      );
+    </script>
+  </body>
+</html>
