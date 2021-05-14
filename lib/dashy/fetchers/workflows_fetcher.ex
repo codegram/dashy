@@ -7,9 +7,8 @@ defmodule Dashy.Fetchers.WorkflowsFetcher do
 
   @impl GitHubWorkflowsFetcher
   def get(repo) do
-    case HTTPoison.get(url(repo)) do
-      {:ok, %{status_code: 404} = response} -> {:error, response}
-      {:ok, %{status_code: 200} = response} -> process(response.body)
+    case GitHubClient.get(url(repo)) do
+      {:ok, response} -> process(response.body)
       {:error, _} = err -> err
     end
   end

@@ -28,11 +28,8 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
     else
       url = build_url(repo, branch, page)
 
-      case HTTPoison.get(url, headers()) do
-        {:ok, %{status_code: 404} = response} ->
-          {:error, response, current_state}
-
-        {:ok, %{status_code: 200} = response} ->
+      case GitHubClient.get(url) do
+        {:ok, response} ->
           fetched_runs = process(response.body, branch)
           new_state = current_state ++ fetched_runs
           get(repo, branch, new_state, page: page + 1, at_least: limit)
@@ -74,12 +71,6 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
 
   defp build_url(repo, branch, page) do
     "https://api.github.com/repos/#{repo}/actions/runs?per_page=100&branch=#{branch}&page=#{page}"
-  end
-
-  defp headers() do
-    [
-      Authorization: Application.get_env(:dashy, Dashy.Fetcher)[:token]
-    ]
   end
 
   defp remove_nils(list) do
