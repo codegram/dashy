@@ -13,11 +13,6 @@ const LastRunsHooks = {
     function colorize(ctx) {
       return COLORS[ctx?.raw?.status]
     }
-    function visitRun(event, array) {
-      if (array[0]) {
-        window.open(this.lastRuns[array[0].index].link)
-      }
-    }
     const data = {
       labels: this.lastRuns.map((run) => run.time),
       datasets: [
@@ -63,7 +58,6 @@ const LastRunsHooks = {
           xAxisKey: "minutes",
           yAxisKey: "minutes",
         },
-        onClick: visitRun,
       },
     }
     var chart = new Chart(this.el, config)

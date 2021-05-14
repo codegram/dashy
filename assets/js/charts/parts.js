@@ -1,76 +1,74 @@
 import Chart from "chart.js/auto"
-import 'chartjs-adapter-luxon';
+import "chartjs-adapter-luxon"
 import toTime from "./utils.js"
 
 const PartsHooks = {
   mounted() {
-    function visitPart(event, array){
-      if (array[0]) {
-        window.open(partsInfo[partNames[array[0].datasetIndex]][array[0].index].link);
-      }
-    }
-
     const config = {
-      type: 'line',
+      type: "line",
       data: {},
       options: {
         animation: false,
         scales: {
           x: {
-            type: 'time',
+            type: "time",
             time: {
-              tooltipFormat: 'DD T'
+              tooltipFormat: "DD T",
             },
             title: {
               display: true,
-              text: 'Date'
-            }
+              text: "Date",
+            },
           },
           y: {
             title: {
               display: true,
-              text: 'Minutes'
-            }
-          }
+              text: "Minutes",
+            },
+          },
         },
         plugins: {
           legend: false,
           tooltip: {
             callbacks: {
               beforeTitle: (ctx) => ctx[0].raw.name.toUpperCase(),
-              label: toTime
-            }
-          }
+              label: toTime,
+            },
+          },
         },
         parsing: {
-          xAxisKey: 'time',
-          yAxisKey: 'minutes'
+          xAxisKey: "time",
+          yAxisKey: "minutes",
         },
-        onClick: visitPart
-      }
-    };
+      },
+    }
 
     var chart = new Chart(this.el, config)
 
     function generateColors(total) {
-      const result = [];
-      for (var i=0; i<total; i++) {
-        result[i] = `hsla(${360/total*i}, ${50 + 25 * (i%3)}%, ${75 - 25 * (i%3)}%, `;
+      const result = []
+      for (var i = 0; i < total; i++) {
+        result[i] = `hsla(${(360 / total) * i}, ${50 + 25 * (i % 3)}%, ${
+          75 - 25 * (i % 3)
+        }%, `
       }
-      return result;
+      return result
     }
 
     this.handleEvent("load-parts", ({ data }) => {
       console.log(data)
-      const partNames = Object.keys(data);
+      const partNames = Object.keys(data)
       const LINE_COLORS = generateColors(partNames.length)
 
       function showPartColor(colorIndex) {
         return () => {
-          if (window.partNameFocus && partNames[colorIndex] != window.partNameFocus) {
-            return LINE_COLORS[colorIndex] + "10%)";
+          if (
+            window.partNameFocus &&
+            partNames[colorIndex] != window.partNameFocus
+          ) {
+            return LINE_COLORS[colorIndex] + "10%)"
           } else {
-            return LINE_COLORS[colorIndex] + "100%)";
+            return LINE_COLORS[colorIndex] + "100%)"
           }
         }
       }
@@ -78,51 +76,53 @@ const PartsHooks = {
       function showPartBorderWidth(colorIndex) {
         return () => {
           if (partNames[colorIndex] == window.partNameFocus) {
-            return 2;
+            return 2
           } else {
-            return 1;
+            return 1
           }
         }
       }
 
-      var colorIndex = 0;
+      var colorIndex = 0
       const partsDatasets = partNames.map((partName) => {
         return {
           label: partName,
           data: data[partName],
-          cubicInterpolationMode: 'monotone',
+          cubicInterpolationMode: "monotone",
           pointBackgroundColor: showPartColor(colorIndex),
           borderColor: showPartColor(colorIndex),
           borderWidth: showPartBorderWidth(colorIndex++),
           tension: 0.2,
-          pointStyle: 'circle',
+          pointStyle: "circle",
           pointBorderWidth: 0,
-          pointRadius: 2
+          pointRadius: 2,
         }
-      });
+      })
 
       chart.data = {
-        datasets: partsDatasets
-      };
+        datasets: partsDatasets,
+      }
       chart.update()
 
-      const $partsList = document.getElementById("parts_list");
-      $partsList.innerHTML = "<ul>";
+      const $partsList = document.getElementById("parts_list")
+      $partsList.innerHTML = "<ul>"
       for (var index in partNames) {
-        const partName = partNames[index];
-        $partsList.innerHTML += `<li class="part_name" data-slug="${partName}" style="color: ${LINE_COLORS[index]}100%)"><span>${partName}</span> <a href="#${partName}">&gt;&gt;</a></li>`;
+        const partName = partNames[index]
+        $partsList.innerHTML += `<li class="part_name" data-slug="${partName}" style="color: ${LINE_COLORS[index]}100%)"><span>${partName}</span> <a href="#${partName}">&gt;&gt;</a></li>`
       }
-      $partsList.innerHTML += "</ul>";
+      $partsList.innerHTML += "</ul>"
 
-      Object.values(document.getElementsByClassName("part_name")).forEach((part) => {
-        part.addEventListener("mouseover", (e) => {
-          window.partNameFocus = e.currentTarget.dataset.slug;
-          chart.update();
-        })
-      });
-      $partsList.addEventListener("mouseout", (e) => {
-        window.partNameFocus = null;
-        chart.update();
+      Object.values(document.getElementsByClassName("part_name")).forEach(
+        (part) => {
+          part.addEventListener("mouseover", (e) => {
+            window.partNameFocus = e.currentTarget.dataset.slug
+            chart.update()
+          })
+        }
+      )
+      $partsList.addEventListener("mouseout", (_) => {
+        window.partNameFocus = null
+        chart.update()
       })
     })
   },
