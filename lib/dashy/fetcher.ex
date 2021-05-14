@@ -22,9 +22,8 @@ defmodule Dashy.Fetcher do
       {:error, _} = error ->
         error
 
-      result ->
-        result
-        |> Map.get(:body)
+      %{body: results} ->
+        results
         |> Enum.each(fn workflow ->
           create_function.(workflow)
         end)

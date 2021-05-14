@@ -8,7 +8,7 @@ defmodule Dashy.Fetchers.WorkflowsFetcher do
   @impl GitHubWorkflowsFetcher
   def get(repo) do
     case GitHubClient.get(url(repo)) do
-      {:ok, response} -> process(response.body)
+      {:ok, response} -> %{body: process(response.body)}
       {:error, _} = err -> err
     end
   end
