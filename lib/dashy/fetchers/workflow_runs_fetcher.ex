@@ -9,7 +9,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
   """
   @behaviour GitHubWorkflowRunsFetcher
 
-  @minimum_results_number 1000
+  @minimum_results_number 200
   @starting_page 1
   @default_branch "develop"
 
