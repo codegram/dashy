@@ -9,6 +9,7 @@ defmodule Dashy.Repo.Migrations.CreateWorkflowRuns do
       add :conclusion, :string, null: false
       add :status, :string, null: false
       add :workflow_id, references(:workflows, column: :external_id, type: :integer), null: false
+      add :metadata, :jsonb
 
       timestamps(inserted_at: :created_at)
     end

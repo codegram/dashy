@@ -8,6 +8,7 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
     field :node_id, :string
     field :status, :string
     field :conclusion, :string
+    field :metadata, :map
 
     belongs_to :workflow, Dashy.Workflows.Workflow, references: :external_id
     timestamps(inserted_at: :created_at)
