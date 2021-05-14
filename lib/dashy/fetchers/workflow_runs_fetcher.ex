@@ -28,6 +28,8 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
     else
       url = build_url(repo, branch, page)
 
+      :timer.sleep(1000)
+
       case GitHubClient.get(url) do
         {:ok, response} ->
           fetched_runs = process(response.body, branch)
