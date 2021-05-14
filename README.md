@@ -11,6 +11,8 @@
 3. Run this piece of code:
 
 ```elixir
-Dashy.Fetcher.update_workflows("decidim/decidim")
-Dashy.Fetcher.update_workflow_runs("decidim/decidim")
+repo_name = "decidim/decidim"
+Dashy.Fetcher.update_workflows(repo_name)
+Dashy.Fetcher.update_workflow_runs(repo_name)
+Dashy.Fetcher.update_all_workflow_run_jobs(repo_name)
 ```

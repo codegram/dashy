@@ -1,8 +1,14 @@
 defmodule Dashy.Fetcher do
   alias Dashy.Workflows
   alias Dashy.WorkflowRuns
+  alias Dashy.WorkflowRunJobs
   alias Dashy.Fetchers.WorkflowsFetcher
   alias Dashy.Fetchers.WorkflowRunsFetcher
+  alias Dashy.Fetchers.WorkflowRunJobsFetcher
+
+  import Ecto.Query
+
+  alias Dashy.Repo
 
   @minimum_results_number 200
   @starting_page 1
@@ -29,6 +35,23 @@ defmodule Dashy.Fetcher do
     )
   end
 
+  def update_all_workflow_run_jobs(repo_name) do
+    from(
+      r in WorkflowRuns.WorkflowRun,
+      select: [:external_id]
+    )
+    |> Repo.all()
+    |> Enum.each(fn workflow_run ->
+      Dashy.Fetcher.update_workflow_run_jobs(repo_name, workflow_run.external_id)
+    end)
+  end
+
+  def update_workflow_run_jobs(repo_name, workflow_run, opts \\ []) do
+    fetcher_module = Keyword.get(opts, :with, WorkflowRunJobsFetcher)
+    save_function = &WorkflowRunJobs.create_or_update/1
+
+    save_results(fetcher_module.get(repo_name, workflow_run), save_function)
+  end
 
   defp save_results(results, save_function) do
     case results do
