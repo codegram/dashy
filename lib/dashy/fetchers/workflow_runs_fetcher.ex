@@ -9,7 +9,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
   """
   @behaviour GitHubWorkflowRunsFetcher
 
-  @minimum_results_number 100
+  @minimum_results_number 1000
   @starting_page 1
   @default_branch "develop"
 
@@ -28,7 +28,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
     else
       url = build_url(repo, branch, page)
 
-      :timer.sleep(1000)
+      :timer.sleep(100)
 
       case GitHubClient.get(url) do
         {:ok, response} ->
