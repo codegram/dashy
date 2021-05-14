@@ -19,6 +19,8 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
   def changeset(workflow, attrs) do
     workflow
     |> cast(attrs, [
+      :created_at,
+      :updated_at,
       :external_id,
       :name,
       :node_id,
