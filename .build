@@ -1,8 +1,11 @@
 404.html
 Dashy.Fetcher.html
+Dashy.Fetchers.WorkflowRunsFetcher.html
 Dashy.Fetchers.WorkflowsFetcher.html
 Dashy.Repo.html
 Dashy.Schema.html
+Dashy.WorkflowRuns.WorkflowRun.html
+Dashy.WorkflowRuns.html
 Dashy.Workflows.Workflow.html
 Dashy.Workflows.html
 Dashy.html
@@ -22,7 +25,9 @@ DashyWeb.Telemetry.html
 DashyWeb.UILive.html
 DashyWeb.UserSocket.html
 DashyWeb.html
-GitHubFetcher.html
+GitHubClient.html
+GitHubWorkflowRunsFetcher.html
+GitHubWorkflowsFetcher.html
 api-reference.html
 dist/app-f27ff079945e43879c46.js
 dist/elixir-a172fe91e725dcb259e2.css
@@ -30,7 +35,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-94c37ab869.js
-dist/sidebar_items-bbcc6d2584.js
+dist/search_items-1c6ba29fbc.js
+dist/sidebar_items-6478eb5482.js
 index.html
 search.html
