@@ -7,7 +7,7 @@ defmodule Dashy.WorkflowRuns do
   def create_or_update(attrs) do
     case get_by_external_id(attrs.external_id) do
       nil -> %WorkflowRun{}
-      workflow -> workflow
+      workflow_run -> workflow_run
     end
     |> WorkflowRun.changeset(attrs)
     |> Repo.insert_or_update()
