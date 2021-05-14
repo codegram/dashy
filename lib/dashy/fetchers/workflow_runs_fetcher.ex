@@ -23,6 +23,8 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
   end
 
   defp get(repo, branch, current_state, page: page, at_least: limit) do
+    IO.puts("Fetching page #{page}, fetched number of rows: #{current_state |> Enum.count()}")
+
     if Enum.count(current_state) >= limit do
       %{body: current_state}
     else
