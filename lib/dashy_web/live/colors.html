@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Colors</title>
+    <style>
+      table tr td div {
+        width: 1.5rem;
+        height: 0.75rem;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="number" value="20" id="colors">
+    <button id="update">Update</button>
+    <table cellspacing="0" cellspadding="0" border="0" id="table"></table>
+
+    <script>
+      const $table = document.getElementById("table");
+      const $update = document.getElementById("update");
+      const $colors = document.getElementById("colors");
+      $update.addEventListener("click", (e) => {
+        const colors = parseInt($colors.value);
+        const colorsList = generateColors(colors);
+
+        var html = "";
+        for (var i=0; i<colors; i++) {
+          html += "<tr>";
+          for (var j=0; j<colors; j++) {
+            if (i==j) {
+              html += `<td><div></div><div></div></td>`;
+            } else {
+              html += `<td><div style='background: ${colorsList[i]}'></div><div style='background: ${colorsList[j]}'></div></td>`;
+            }
+          }
+          html += "</tr>";
+        }
+        $table.innerHTML = html;
+      });
+
+      function generateColors(total) {
+        const result = [];
+        for (var i=0; i<total; i++) {
+          result[i] = `hsl(${360/total*i}, ${50 + 25 * (i%3)}%, ${75 - 25 * (i%3)}%)`;
+        }
+        return result;
+      }
+    </script>
+  </body>
+</html>
