@@ -13,6 +13,8 @@ DashyWeb.Components.Button.html
 DashyWeb.Components.Card.html
 DashyWeb.Components.CardContent.html
 DashyWeb.Components.CardTitle.html
+DashyWeb.Components.Charts.LastRuns.html
+DashyWeb.Components.Charts.Parts.html
 DashyWeb.Endpoint.html
 DashyWeb.ErrorHelpers.html
 DashyWeb.ErrorView.html
@@ -35,7 +37,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-1c6ba29fbc.js
-dist/sidebar_items-6478eb5482.js
+dist/search_items-9f7a2a19bf.js
+dist/sidebar_items-a0dc8a1f1c.js
 index.html
 search.html
