@@ -9,6 +9,7 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
     field :status, :string
     field :conclusion, :string
     field :metadata, :map
+    field :head_sha, :string
 
     belongs_to :workflow, Dashy.Workflows.Workflow, references: :external_id
     timestamps(inserted_at: :created_at)
@@ -17,8 +18,26 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
   @doc false
   def changeset(workflow, attrs) do
     workflow
-    |> cast(attrs, [:external_id, :name, :node_id, :status, :conclusion, :workflow_id])
-    |> validate_required([:external_id, :name, :node_id, :status, :conclusion, :workflow_id])
+    |> cast(attrs, [
+      :external_id,
+      :name,
+      :node_id,
+      :status,
+      :conclusion,
+      :workflow_id,
+      :metadata,
+      :head_sha
+    ])
+    |> validate_required([
+      :external_id,
+      :name,
+      :node_id,
+      :status,
+      :conclusion,
+      :workflow_id,
+      :metadata,
+      :head_sha
+    ])
     |> unique_constraint(:external_id)
   end
 end
