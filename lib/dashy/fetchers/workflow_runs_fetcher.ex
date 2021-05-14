@@ -44,27 +44,25 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
     body
     |> Jason.decode!()
     |> Map.get("workflow_runs")
-    |> parse(branch)
+    |> parse_body(branch)
   end
 
-  defp parse(nil, _), do: []
+  defp parse_body(nil, _), do: []
 
-  defp parse(workflow_runs, branch) do
+  defp parse_body(workflow_runs, branch) do
     workflow_runs
-    |> Enum.map(fn workflow_run ->
-      case workflow_run do
-        %{"head_branch" => ^branch} ->
-          workflow_run
-          |> Map.take(@expected_fields)
-          |> Map.new(fn {k, v} -> {String.to_atom(rename_key(k)), v} end)
-          |> Map.merge(%{raw_data: workflow_run})
-
-        _ ->
-          nil
-      end
-    end)
+    |> Enum.map(fn workflow_run -> parse_workflow_run(workflow_run, branch) end)
     |> remove_nils()
   end
+
+  defp parse_workflow_run(%{"head_branch" => branch} = workflow_run, branch) do
+    workflow_run
+    |> Map.take(@expected_fields)
+    |> Map.new(fn {k, v} -> {String.to_atom(rename_key(k)), v} end)
+    |> Map.merge(%{raw_data: workflow_run})
+  end
+
+  defp parse_workflow_run(_workflow_run, _branch), do: nil
 
   defp rename_key("id"), do: "external_id"
   defp rename_key(key), do: key
