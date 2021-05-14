@@ -32,6 +32,7 @@ defmodule Dashy.FetcherTest do
 
       assert %Workflow{} = workflow_run |> Repo.preload(:workflow) |> Map.get(:workflow)
       assert %{"foo" => 1} = workflow_run.metadata
+      assert workflow_run.head_sha
     end
 
     test "handles errors" do

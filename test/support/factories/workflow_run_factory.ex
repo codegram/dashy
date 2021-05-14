@@ -15,6 +15,7 @@ defmodule Dashy.WorkflowRunFactory do
           status: "completed",
           node_id: sequence(:node_id, &"node-id-#{&1}"),
           external_id: sequence(:workflow_external_id, fn id -> id end),
+          head_sha: "2345678sdf5678dfs67543dsfgdrs",
           metadata: %{"foo" => 1}
         }
       end

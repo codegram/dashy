@@ -14,7 +14,7 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
   @default_branch "develop"
 
   @expected_fields ~w(
-    id node_id name conclusion status created_at updated_at workflow_id
+    id node_id name conclusion status created_at updated_at workflow_id head_sha
   )
 
   @impl GitHubWorkflowRunsFetcher
