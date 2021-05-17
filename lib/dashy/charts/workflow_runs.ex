@@ -10,7 +10,8 @@ defmodule Dashy.Charts.WorkflowRuns do
     from(
       r in WorkflowRun,
       select: %{head_sha: r.head_sha},
-      group_by: r.head_sha
+      group_by: r.head_sha,
+      order_by: min(r.created_at)
     )
     |> Repo.all()
     |> fetch_times()
