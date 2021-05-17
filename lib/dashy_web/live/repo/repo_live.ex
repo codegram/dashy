@@ -16,7 +16,7 @@ defmodule DashyWeb.RepoLive do
     parts = []
     colors = []
 
-    {:ok, socket |> assign(repo: id, parts: parts, colors: colors, uses_fake_data: true)}
+    {:ok, socket |> assign(repo: id, parts: parts, colors: colors, uses_fake_data: false)}
   end
 
   @impl true
@@ -40,7 +40,7 @@ defmodule DashyWeb.RepoLive do
               <Parts list="parts_list" />
             </div>
             <div class="col-span-3">
-              <ul class="h-96 overflow-scroll" id="parts_list">
+              <ul class="h-96 overflow-auto" id="parts_list">
                 <li class="part_name" data-slug="{{part}}" style="color: {{Helpers.build_style_color(@colors |> Enum.at(index))}}" :for={{ {part, index} <- @parts |> Enum.with_index()}}>{{part}}</li>
               </ul>
             </div>
@@ -100,5 +100,5 @@ defmodule DashyWeb.RepoLive do
     do: Dashy.Charts.WorkflowPartsFake
 
   defp get_parts_module(%{assigns: %{uses_fake_data: false}} = _socket),
-    do: Dashy.Charts.WorkflowPartsFake
+    do: Dashy.Charts.WorkflowParts
 end
