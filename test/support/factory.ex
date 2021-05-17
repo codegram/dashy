@@ -3,4 +3,5 @@ defmodule Dashy.Factory do
 
   use Dashy.WorkflowFactory
   use Dashy.WorkflowRunFactory
+  use Dashy.WorkflowRunJobFactory
 end

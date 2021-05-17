@@ -10,9 +10,9 @@ defmodule Dashy.Fetcher do
 
   alias Dashy.Repo
 
-  @minimum_results_number 200
-  @starting_page 1
   @default_branch "develop"
+  @starting_page 1
+  @minimum_results_number 200
 
   def update_workflows(repo_name, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowsFetcher)
@@ -29,8 +29,7 @@ defmodule Dashy.Fetcher do
       repo_name,
       fetcher_module,
       save_function,
-      @default_branch,
-      @starting_page,
+      %{branch: @default_branch, page: @starting_page},
       @minimum_results_number
     )
   end
@@ -42,7 +41,7 @@ defmodule Dashy.Fetcher do
     )
     |> Repo.all()
     |> Enum.each(fn workflow_run ->
-      Dashy.Fetcher.update_workflow_run_jobs(repo_name, workflow_run.external_id)
+      Dashy.Fetcher.update_workflow_run_jobs(repo_name, workflow_run)
     end)
   end
 
@@ -50,21 +49,19 @@ defmodule Dashy.Fetcher do
     fetcher_module = Keyword.get(opts, :with, WorkflowRunJobsFetcher)
     save_function = &WorkflowRunJobs.create_or_update/1
 
-    save_results(fetcher_module.get(repo_name, workflow_run), save_function)
+    save_results(fetcher_module.get(repo_name, workflow_run.external_id), save_function)
   end
 
   defp save_results(results, save_function) do
     case results do
-      {:error, _} ->
-        false
+      {:error, error} ->
+        [{:fetch_error, error}]
 
       %{body: results} ->
         results
-        |> Enum.each(fn workflow ->
-          save_function.(workflow)
+        |> Enum.map(fn result ->
+          save_function.(result)
         end)
-
-        true
     end
   end
 
@@ -72,31 +69,39 @@ defmodule Dashy.Fetcher do
          _repo_name,
          _fetcher_module,
          _save_function,
-         _branch,
-         _page,
+         _opts,
          minimum
        )
-       when minimum <= 0 do
-  end
+       when minimum <= 0,
+       do: []
 
   defp fetch_workflow_runs_and_save(
          repo_name,
          fetcher_module,
          save_function,
-         branch,
-         page,
+         %{branch: branch, page: page},
          minimum
        ) do
     results = fetcher_module.get(repo_name, branch, page)
 
-    save_results(results, save_function) &&
-      fetch_workflow_runs_and_save(
-        repo_name,
-        fetcher_module,
-        save_function,
-        "develop",
-        page + 1,
-        minimum - (results.body |> Enum.count())
-      )
+    runs = save_results(results, save_function)
+
+    case runs do
+      [{:fetch_error, _}] ->
+        runs
+
+      [] ->
+        []
+
+      _ ->
+        runs ++
+          fetch_workflow_runs_and_save(
+            repo_name,
+            fetcher_module,
+            save_function,
+            %{branch: branch, page: page + 1},
+            minimum - (results.body |> Enum.count())
+          )
+    end
   end
 end
