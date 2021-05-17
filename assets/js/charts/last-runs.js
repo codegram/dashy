@@ -6,6 +6,7 @@ const LastRunsHooks = {
     this.lastRuns = []
     // LAST RUNS GRAPH
     const COLORS = {
+      pending: "#FBBF24CC",
       success: "#3333FFCC",
       error: "#FF3333CC",
       cancelled: "#999999CC",
