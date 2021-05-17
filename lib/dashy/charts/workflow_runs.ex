@@ -1,6 +1,7 @@
 defmodule Dashy.Charts.WorkflowRuns do
   alias Dashy.Charts.Run
   alias Dashy.WorkflowRuns.WorkflowRun
+  alias Dashy.WorkflowRunJobs.WorkflowRunJob
 
   alias Dashy.Repo
   import Ecto.Query
@@ -8,11 +9,11 @@ defmodule Dashy.Charts.WorkflowRuns do
   def runs(_opts \\ []) do
     from(
       r in WorkflowRun,
-      select: %{head_sha: r.head_sha, start: min(r.created_at), end: max(r.updated_at)},
-      group_by: r.head_sha,
-      order_by: min(r.created_at)
+      select: %{head_sha: r.head_sha},
+      group_by: r.head_sha
     )
     |> Repo.all()
+    |> fetch_times()
     |> Enum.map(fn data ->
       seconds = DateTime.diff(data.end, data.start)
 
@@ -28,4 +29,32 @@ defmodule Dashy.Charts.WorkflowRuns do
 
   defp link_from(%{head_sha: sha}),
     do: "https://github.com/decidim/decidim/commit/#{sha}"
+
+  defp fetch_times(runs) do
+    jobs =
+      from(
+        j in WorkflowRunJob,
+        where: j.head_sha in ^head_shas(runs),
+        select: %{head_sha: j.head_sha, start: min(j.started_at), end: max(j.completed_at)},
+        group_by: j.head_sha,
+        order_by: min(j.started_at)
+      )
+      |> Repo.all()
+      |> IO.inspect(label: "fetched jobs")
+
+    runs
+    |> Enum.map(fn run ->
+      job = jobs |> Enum.find(fn job -> job.head_sha == run.head_sha end)
+
+      run
+      |> Map.merge(%{start: job.start, end: job.end})
+    end)
+  end
+
+  defp head_shas(list) do
+    list
+    |> Enum.map(fn element -> Map.get(element, :head_sha) end)
+    |> Enum.uniq()
+    |> IO.inspect(label: "head shas")
+  end
 end
