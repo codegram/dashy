@@ -11,7 +11,7 @@
 3. Run this piece of code:
 
 ```elixir
-repo_name = "ether/etherpad-lite"
+repo_name = "decidim/decidim-bulletin-board"
 branch_name = "develop"
 Dashy.Fetcher.update_workflows(repo_name)
 Dashy.Fetcher.update_workflow_runs(repo_name, branch_name)
