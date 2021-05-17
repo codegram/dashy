@@ -6,8 +6,8 @@ defmodule Dashy.TestFetchers.WorkflowRunsFetcher do
   @impl GitHubWorkflowRunsFetcher
   def get(_repo, _branch, 1) do
     workflow_runs = [
-      params_for(:workflow_run),
-      params_for(:workflow_run)
+      params_for(:workflow_run_with_workflow_id),
+      params_for(:workflow_run_with_workflow_id)
     ]
 
     %{body: workflow_runs}

@@ -60,7 +60,7 @@ defmodule Dashy.Charts.WorkflowRunsTest do
 
       assert [%Dashy.Charts.Run{} = fetched_run] = Dashy.Charts.WorkflowRuns.runs()
 
-      assert fetched_run.status == "failure"
+      assert fetched_run.status == "error"
     end
   end
 end
