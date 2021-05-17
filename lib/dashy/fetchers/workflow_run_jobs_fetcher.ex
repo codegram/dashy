@@ -20,7 +20,6 @@ defmodule Dashy.Fetchers.WorkflowRunJobsFetcher do
 
   defp process(body, workflow_run_id) do
     body
-    |> IO.inspect()
     |> Jason.decode!()
     |> Map.get("jobs")
     |> parse_body(workflow_run_id)
