@@ -10,7 +10,7 @@
     <title>Dashy.Fetchers.WorkflowRunsFetcher.get — dashy v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-a0dc8a1f1c.js"></script>
+    <script src="dist/sidebar_items-3eda37ff47.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -84,24 +84,22 @@ dashy
   You're seeing just the function <code>get</code>, go back to <a href="Dashy.Fetchers.WorkflowRunsFetcher.html">Dashy.Fetchers.WorkflowRunsFetcher</a> module for more information.
 </div>
 
-<section class="detail" id="get/1">
+<section class="detail" id="get/3">
 
   <div class="detail-header">
-    <a href="#get/1" class="detail-link" title="Link to this function">
+    <a href="#get/3" class="detail-link" title="Link to this function">
       <span class="icon-link" aria-hidden="true"></span>
       <span class="sr-only">Link to this function</span>
     </a>
-    <h1 class="signature">get(repo)</h1>
+    <h1 class="signature">get(repo_name, branch, page)</h1>
 
 
   </div>
 
   <section class="docstring">
 
-<p>This module fetches the latest workflow runs for the <code class="inline">develop</code> branch. Since
-the API returns data from any branch matching the name (both <code class="inline">develop</code> and
-<code class="inline">chore/l10n/develop</code> results are returned), we need to keep iterating in pages
-until we find at least the number of results we want.</p><p>The module will try to fetch <em>at least</em> 100 results.</p>
+<p>This module fetches the latest workflow runs for the given branch and the
+given page.</p>
   </section>
 </section>
 

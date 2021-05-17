@@ -1,9 +1,15 @@
 404.html
+Dashy.Charts.Run.html
+Dashy.Charts.WorkflowRuns.html
+Dashy.Charts.WorkflowRunsFake.html
 Dashy.Fetcher.html
+Dashy.Fetchers.WorkflowRunJobsFetcher.html
 Dashy.Fetchers.WorkflowRunsFetcher.html
 Dashy.Fetchers.WorkflowsFetcher.html
 Dashy.Repo.html
 Dashy.Schema.html
+Dashy.WorkflowRunJobs.WorkflowRunJob.html
+Dashy.WorkflowRunJobs.html
 Dashy.WorkflowRuns.WorkflowRun.html
 Dashy.WorkflowRuns.html
 Dashy.Workflows.Workflow.html
@@ -28,6 +34,7 @@ DashyWeb.UILive.html
 DashyWeb.UserSocket.html
 DashyWeb.html
 GitHubClient.html
+GitHubWorkflowRunJobsFetcher.html
 GitHubWorkflowRunsFetcher.html
 GitHubWorkflowsFetcher.html
 api-reference.html
@@ -37,7 +44,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-9f7a2a19bf.js
-dist/sidebar_items-a0dc8a1f1c.js
+dist/search_items-49f6420ad2.js
+dist/sidebar_items-3eda37ff47.js
 index.html
 search.html
