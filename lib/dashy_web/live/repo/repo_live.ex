@@ -5,8 +5,6 @@ defmodule DashyWeb.RepoLive do
   alias DashyWeb.Components.CardContent
   alias DashyWeb.Components.CardTitle
 
-  alias DashyWeb.Components.Button
-
   alias DashyWeb.Components.Charts.LastRuns
   alias DashyWeb.Components.Charts.Parts
   alias Dashy.Charts.Helpers
@@ -39,7 +37,7 @@ defmodule DashyWeb.RepoLive do
         <CardContent>
           <div class="grid grid-cols-12 gap-4">
             <div class="col-span-9">
-              <Parts title="Parts" list="parts_list" />
+              <Parts list="parts_list" />
             </div>
             <div class="col-span-3">
               <ul class="h-96 overflow-scroll" id="parts_list">

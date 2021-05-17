@@ -37,12 +37,12 @@ defmodule DashyWeb.UILive do
         </div>
       </div>
       <div>
-        <LastRuns title="Last Runs" />
+        <LastRuns />
       </div>
       <div>
         <div class="grid grid-cols-12 gap-4">
           <div class="col-span-9">
-            <Parts title="Parts" list="parts_list" />
+            <Parts list="parts_list" />
           </div>
           <div class="col-span-3">
             <ul class="h-96 overflow-scroll" id="parts_list">
