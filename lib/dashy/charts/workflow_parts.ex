@@ -9,8 +9,10 @@ defmodule Dashy.Charts.WorkflowParts do
   alias Dashy.Charts.Helpers
 
   def parts(opts \\ []) do
+    last = Repo.one(from r in WorkflowRun, order_by: [desc: r.created_at], limit: 1)
+
     days = Keyword.get(opts, :days, 30)
-    minimum_start_time = DateTime.utc_now() |> DateTime.add(-days * 60 * 60 * 24, :second)
+    minimum_start_time = last.created_at |> DateTime.add(-days * 60 * 60 * 24, :second)
 
     grouped_run_jobs =
       from(
