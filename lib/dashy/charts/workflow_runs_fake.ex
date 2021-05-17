@@ -30,8 +30,9 @@ defmodule Dashy.Charts.WorkflowRunsFake do
 
   defp set_status() do
     case :rand.uniform(100) do
-      x when x < 10.0 -> "cancelled"
-      x when x < 20.0 -> "error"
+      x when x < 20.0 -> "cancelled"
+      x when x < 40.0 -> "error"
+      x when x < 60.0 -> "pending"
       _ -> "success"
     end
   end

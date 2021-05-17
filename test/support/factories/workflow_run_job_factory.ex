@@ -9,7 +9,7 @@ defmodule Dashy.WorkflowRunJobFactory do
     quote do
       def workflow_run_job_factory do
         %Dashy.WorkflowRunJobs.WorkflowRunJob{
-          workflow_run_id: insert(:workflow_run).external_id,
+          workflow_run: build(:workflow_run),
           name: "My workflow run job",
           conclusion: "completed",
           status: "completed",

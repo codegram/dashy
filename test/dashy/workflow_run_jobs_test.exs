@@ -7,13 +7,15 @@ defmodule Dashy.WorkflowRunJobsTest do
     test "finds the workflow_run_job" do
       workflow_run_job = insert(:workflow_run_job)
 
-      assert workflow_run_job == WorkflowRunJobs.get_by_external_id(workflow_run_job.external_id)
+      assert workflow_run_job.id ==
+               WorkflowRunJobs.get_by_external_id(workflow_run_job.external_id).id
     end
   end
 
   describe "create_or_update/1" do
     test "creates a workflow_run_job" do
-      attrs = params_for(:workflow_run_job)
+      run = insert(:workflow_run)
+      attrs = params_for(:workflow_run_job) |> Map.merge(%{workflow_run_id: run.external_id})
 
       assert {:ok, _workflow_run_job} = WorkflowRunJobs.create_or_update(attrs)
     end
