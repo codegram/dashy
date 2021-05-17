@@ -17,6 +17,7 @@ defmodule Dashy.WorkflowRunJobFactory do
           external_id: sequence(:workflow_run_job_external_id, fn id -> id end),
           started_at: DateTime.utc_now(),
           completed_at: DateTime.utc_now(),
+          head_sha: "i8twygrheiugnyeourytenvor8oyy",
           metadata: %{"foo" => 1}
         }
       end

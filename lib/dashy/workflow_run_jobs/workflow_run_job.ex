@@ -10,6 +10,7 @@ defmodule Dashy.WorkflowRunJobs.WorkflowRunJob do
     field :conclusion, :string
     field :started_at, :utc_datetime
     field :completed_at, :utc_datetime
+    field :head_sha, :string
     field :metadata, :map
 
     belongs_to :workflow_run, Dashy.WorkflowRuns.WorkflowRun, references: :external_id
@@ -28,6 +29,7 @@ defmodule Dashy.WorkflowRunJobs.WorkflowRunJob do
       :started_at,
       :completed_at,
       :workflow_run_id,
+      :head_sha,
       :metadata
     ])
     |> validate_required([
@@ -38,6 +40,7 @@ defmodule Dashy.WorkflowRunJobs.WorkflowRunJob do
       :conclusion,
       :started_at,
       :workflow_run_id,
+      :head_sha,
       :metadata
     ])
     |> unique_constraint(:external_id)

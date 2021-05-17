@@ -5,7 +5,7 @@ defmodule Dashy.Fetchers.WorkflowRunJobsFetcher do
   @behaviour GitHubWorkflowRunJobsFetcher
 
   @expected_fields ~w(
-    id node_id name conclusion status started_at completed_at
+    id node_id name conclusion status started_at completed_at head_sha
   )
 
   @impl GitHubWorkflowRunJobsFetcher
