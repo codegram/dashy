@@ -25,7 +25,7 @@ defmodule DashyWeb.RepoLive do
     <div class="max-w-6xl p-4 mx-auto">
       <h1>Repo: {{@repo}}</h1>
       <Card>
-        <CardTitle title="Last runs" subtitle="Here you can see the last runs" />
+        <CardTitle title="Last runs" subtitle="The last runs of the tests suite for this repository." />
         <CardContent>
           <div>
             <LastRuns />
@@ -33,7 +33,7 @@ defmodule DashyWeb.RepoLive do
         </CardContent>
       </Card>
       <Card>
-        <CardTitle title="Parts" subtitle="Here you can see the Parts" />
+        <CardTitle title="Workflows" subtitle="The running time for each workflow of this tests suite." />
         <CardContent>
           <div class="grid grid-cols-12 gap-4">
             <div class="col-span-9">
