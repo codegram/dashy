@@ -3,5 +3,11 @@ defmodule GitHubWorkflowsFetcher do
 end
 
 defmodule GitHubWorkflowRunsFetcher do
-  @callback get(String.t()) :: %{body: any() | [any(), ...]} | {:error, any(), any()}
+  @callback get(String.t(), String.t(), integer()) ::
+              %{body: any() | [any(), ...]} | {:error, any(), any()}
+end
+
+defmodule GitHubWorkflowRunJobsFetcher do
+  @callback get(String.t(), integer()) ::
+              %{body: any() | [any(), ...]} | {:error, any(), any()}
 end

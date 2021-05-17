@@ -3,7 +3,7 @@ defmodule Dashy.Repo.Migrations.CreateWorkflowRuns do
 
   def change do
     create table("workflow_runs") do
-      add :external_id, :integer, null: false
+      add :external_id, :bigint, null: false
       add :name, :string, null: false
       add :node_id, :string, null: false
       add :conclusion, :string, null: false

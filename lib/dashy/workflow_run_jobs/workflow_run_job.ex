@@ -1,17 +1,18 @@
-defmodule Dashy.WorkflowRuns.WorkflowRun do
+defmodule Dashy.WorkflowRunJobs.WorkflowRunJob do
   use Dashy.Schema
   import Ecto.Changeset
 
-  schema "workflow_runs" do
+  schema "workflow_run_jobs" do
     field :external_id, :integer
     field :name, :string
     field :node_id, :string
     field :status, :string
     field :conclusion, :string
+    field :started_at, :utc_datetime
+    field :completed_at, :utc_datetime
     field :metadata, :map
-    field :head_sha, :string
 
-    belongs_to :workflow, Dashy.Workflows.Workflow, references: :external_id
+    belongs_to :workflow_run, Dashy.WorkflowRuns.WorkflowRun, references: :external_id
     timestamps(inserted_at: :created_at)
   end
 
@@ -19,16 +20,15 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
   def changeset(workflow, attrs) do
     workflow
     |> cast(attrs, [
-      :created_at,
-      :updated_at,
       :external_id,
       :name,
       :node_id,
       :status,
       :conclusion,
-      :workflow_id,
-      :metadata,
-      :head_sha
+      :started_at,
+      :completed_at,
+      :workflow_run_id,
+      :metadata
     ])
     |> validate_required([
       :external_id,
@@ -36,9 +36,9 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
       :node_id,
       :status,
       :conclusion,
-      :workflow_id,
-      :metadata,
-      :head_sha
+      :started_at,
+      :workflow_run_id,
+      :metadata
     ])
     |> unique_constraint(:external_id)
   end

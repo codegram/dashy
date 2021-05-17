@@ -1,7 +1,7 @@
 defmodule GitHubClient do
   def get(url) do
     headers = [
-      Authorization: Application.get_env(:dashy, Dashy.Fetcher)[:token]
+      Authorization: "token #{Application.get_env(:dashy, Dashy.Fetcher)[:token]}"
     ]
 
     case HTTPoison.get(url, headers) do

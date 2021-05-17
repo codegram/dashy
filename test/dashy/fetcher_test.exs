@@ -5,6 +5,7 @@ defmodule Dashy.FetcherTest do
   alias Dashy.Repo
   alias Dashy.Workflows.Workflow
   alias Dashy.WorkflowRuns.WorkflowRun
+  alias Dashy.WorkflowRunJobs.WorkflowRunJob
 
   describe "update_workflows/2" do
     test "fetches workflows from the API and saves them to the DB" do
@@ -16,7 +17,7 @@ defmodule Dashy.FetcherTest do
     end
 
     test "handles errors" do
-      assert {:error, _} =
+      assert [{:fetch_error, "whoops in my/repo"}] =
                Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
     end
   end
@@ -27,7 +28,7 @@ defmodule Dashy.FetcherTest do
 
       Fetcher.update_workflow_runs("my/repo", with: Dashy.TestFetchers.WorkflowRunsFetcher)
 
-      [workflow_run, _] = workflow_runs = Repo.all(WorkflowRun)
+      [workflow_run | _] = workflow_runs = Repo.all(WorkflowRun)
       assert 2 == workflow_runs |> Enum.count()
 
       assert %Workflow{} = workflow_run |> Repo.preload(:workflow) |> Map.get(:workflow)
@@ -36,8 +37,27 @@ defmodule Dashy.FetcherTest do
     end
 
     test "handles errors" do
-      assert {:error, _} =
+      assert [{:fetch_error, "whoops in 1 of my/repo, branch develop"}] =
                Fetcher.update_workflow_runs("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
+    end
+  end
+
+  describe "update_workflows_run_jobs/2" do
+    test "fetches workflow run jobs from the API and saves them to the DB" do
+      assert [] == Repo.all(WorkflowRunJob)
+
+      workflow_run = insert(:workflow_run)
+
+      Fetcher.update_workflow_run_jobs("my/repo", workflow_run,
+        with: Dashy.TestFetchers.WorkflowRunJobsFetcher
+      )
+
+      assert 2 == Repo.all(WorkflowRunJob) |> Enum.count()
+    end
+
+    test "handles errors" do
+      assert [{:fetch_error, "whoops in my/repo"}] =
+               Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
     end
   end
 end
