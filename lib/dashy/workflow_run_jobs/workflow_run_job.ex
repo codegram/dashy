@@ -12,7 +12,7 @@ defmodule Dashy.WorkflowRunJobs.WorkflowRunJob do
     field :completed_at, :utc_datetime
     field :metadata, :map
 
-    belongs_to :workflow_run, Dashy.Workflows.WorkflowRun, references: :external_id
+    belongs_to :workflow_run, Dashy.WorkflowRuns.WorkflowRun, references: :external_id
     timestamps(inserted_at: :created_at)
   end
 
