@@ -40,7 +40,6 @@ defmodule Dashy.Charts.WorkflowRuns do
         order_by: min(j.started_at)
       )
       |> Repo.all()
-      |> IO.inspect(label: "fetched jobs")
 
     runs
     |> Enum.map(fn run ->
@@ -55,6 +54,5 @@ defmodule Dashy.Charts.WorkflowRuns do
     list
     |> Enum.map(fn element -> Map.get(element, :head_sha) end)
     |> Enum.uniq()
-    |> IO.inspect(label: "head shas")
   end
 end
