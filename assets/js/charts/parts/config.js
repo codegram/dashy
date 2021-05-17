@@ -60,7 +60,6 @@ export function showPartBorderWidth(label) {
 }
 
 export function buildDatasets(data) {
-  console.log(data)
   return data.map(({ label, data, color }) => {
     return {
       label: label,

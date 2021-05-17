@@ -1,7 +1,5 @@
 import toTime from "../utils.js"
 
-const lastRuns = []
-// LAST RUNS GRAPH
 const COLORS = {
   pending: "#FBBF24CC",
   success: "#3333FFCC",
@@ -11,18 +9,21 @@ const COLORS = {
 function colorize(ctx) {
   return COLORS[ctx?.raw?.status]
 }
-const data = {
-  labels: lastRuns.map((run) => run.time),
-  datasets: [
-    {
-      data: lastRuns,
-      borderRadius: 2,
-    },
-  ],
+export function buildLabels(data) {
+  return {
+    labels: data.map((run) => run.time),
+    datasets: [
+      {
+        data: data,
+        borderRadius: 2,
+      },
+    ],
+  }
 }
+
 export const config = {
   type: "bar",
-  data: data,
+  data: buildLabels([]),
   options: {
     scales: {
       x: {
