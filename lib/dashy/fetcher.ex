@@ -10,7 +10,6 @@ defmodule Dashy.Fetcher do
 
   alias Dashy.Repo
 
-  @default_branch "develop"
   @starting_page 1
   @minimum_results_number 200
 
@@ -21,7 +20,7 @@ defmodule Dashy.Fetcher do
     save_results(fetcher_module.get(repo_name), save_function)
   end
 
-  def update_workflow_runs(repo_name, opts \\ []) do
+  def update_workflow_runs(repo_name, branch, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowRunsFetcher)
     save_function = &WorkflowRuns.create_or_update/1
 
@@ -29,7 +28,7 @@ defmodule Dashy.Fetcher do
       repo_name,
       fetcher_module,
       save_function,
-      %{branch: @default_branch, page: @starting_page},
+      %{branch: branch, page: @starting_page},
       @minimum_results_number
     )
   end
