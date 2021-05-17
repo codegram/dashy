@@ -41,5 +41,6 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
       :head_sha
     ])
     |> unique_constraint(:external_id)
+    |> foreign_key_constraint(:workflow_id)
   end
 end
