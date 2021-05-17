@@ -9,6 +9,7 @@ defmodule Dashy.Repo.Migrations.AddHeadShaToJobs do
     execute """
     UPDATE workflow_run_jobs SET head_sha = metadata->'head_sha'::text;
     """
+
     execute """
     UPDATE workflow_run_jobs SET head_sha = REPLACE(head_sha, '"', '');
     """
