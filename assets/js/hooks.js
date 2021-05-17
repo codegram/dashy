@@ -1,5 +1,5 @@
-import LastRunsHooks from "./charts/last-runs.js"
-import PartsHooks from "./charts/parts.js"
+import LastRunsHooks from "./charts/runs/last-runs.js"
+import PartsHooks from "./charts/parts/parts.js"
 
 const Hooks = {}
 
