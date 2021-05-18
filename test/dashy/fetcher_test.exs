@@ -10,23 +10,27 @@ defmodule Dashy.FetcherTest do
   describe "update_workflows/2" do
     test "fetches workflows from the API and saves them to the DB" do
       assert [] == Repo.all(Workflow)
+      repo = insert(:repository)
 
-      Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.WorkflowsFetcher)
+      Fetcher.update_workflows(repo, with: Dashy.TestFetchers.WorkflowsFetcher)
 
       assert 3 == Repo.all(Workflow) |> Enum.count()
     end
 
     test "handles errors" do
-      assert [{:fetch_error, "whoops in my/repo"}] =
-               Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
+      repo = insert(:repository)
+
+      assert [{:fetch_error, "whoops in #{repo.user}/#{repo.name}"}] ==
+               Fetcher.update_workflows(repo, with: Dashy.TestFetchers.ErroredFetcher)
     end
   end
 
   describe "update_workflow_runs/2" do
     test "fetches workflow_runs from the API and saves them to the DB" do
       assert [] == Repo.all(WorkflowRun)
+      repo = insert(:repository)
 
-      Fetcher.update_workflow_runs("my/repo", "my_branch",
+      Fetcher.update_workflow_runs(repo,
         with: Dashy.TestFetchers.WorkflowRunsFetcher
       )
 
@@ -39,8 +43,10 @@ defmodule Dashy.FetcherTest do
     end
 
     test "handles errors" do
-      assert [{:fetch_error, "whoops in 1 of my/repo, branch my_branch"}] =
-               Fetcher.update_workflow_runs("my/repo", "my_branch",
+      repo = insert(:repository)
+
+      assert [{:fetch_error, "whoops in 1 of #{repo.user}/#{repo.name}, branch #{repo.branch}"}] ==
+               Fetcher.update_workflow_runs(repo,
                  with: Dashy.TestFetchers.ErroredFetcher
                )
     end
@@ -49,10 +55,10 @@ defmodule Dashy.FetcherTest do
   describe "update_workflows_run_jobs/2" do
     test "fetches workflow run jobs from the API and saves them to the DB" do
       assert [] == Repo.all(WorkflowRunJob)
-
+      repo = insert(:repository)
       workflow_run = insert(:workflow_run)
 
-      Fetcher.update_workflow_run_jobs("my/repo", workflow_run,
+      Fetcher.update_workflow_run_jobs(repo, workflow_run,
         with: Dashy.TestFetchers.WorkflowRunJobsFetcher
       )
 
@@ -60,8 +66,10 @@ defmodule Dashy.FetcherTest do
     end
 
     test "handles errors" do
-      assert [{:fetch_error, "whoops in my/repo"}] =
-               Fetcher.update_workflows("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
+      repo = insert(:repository)
+
+      assert [{:fetch_error, "whoops in #{repo.user}/#{repo.name}"}] ==
+               Fetcher.update_workflows(repo, with: Dashy.TestFetchers.ErroredFetcher)
     end
   end
 end

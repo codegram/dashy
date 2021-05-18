@@ -9,6 +9,7 @@ defmodule Dashy.WorkflowFactory do
     quote do
       def workflow_factory do
         %Dashy.Workflows.Workflow{
+          repository: build(:repository),
           name: "My workflow",
           path: ".github/workflows/my_workflow.yml",
           state: "active",

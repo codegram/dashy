@@ -1,6 +1,8 @@
 defmodule DashyWeb.Components.Layout do
   use Surface.LiveComponent
 
+  alias Dashy.Fetchers.GenServerFetcher
+
   alias DashyWeb.Router.Helpers, as: Routes
 
   alias Dashy.Repositories
@@ -29,10 +31,6 @@ defmodule DashyWeb.Components.Layout do
           placeholder="Search or jump to..."
           :class="{ 'bg-white w-80 text-black': focus, 'w-40 bg-transparent text-white': !(focus) }"
           x-on:focus="focus = true"
-          x-on:blur="
-            focus = false;
-            $nextTick(() => {$dispatch('input', {bubbles: true})})
-          "
           />
 
       </Form>
@@ -76,6 +74,14 @@ defmodule DashyWeb.Components.Layout do
   def handle_event("create-repo", %{"new_repo" => params}, socket) do
     case Repositories.create_repository(params) do
       {:ok, repository} ->
+        {:ok, pid} =
+          DynamicSupervisor.start_child(
+            Dashy.FetcherSupervisor,
+            {Dashy.Fetchers.GenServerFetcher, name: String.to_atom("repo_#{repository.id}")}
+          )
+
+        GenServerFetcher.fetch(pid, repository)
+
         {:noreply,
          redirect(socket, to: Routes.repo_path(socket, :index, repository.user, repository.name))}
 
