@@ -2,7 +2,7 @@ import toTime from "../utils.js"
 
 const COLORS = {
   pending: "#FBBF24CC",
-  success: "#3333FFCC",
+  success: "#27D621CC",
   error: "#FF3333CC",
   cancelled: "#999999CC",
 }
