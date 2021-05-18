@@ -10,9 +10,9 @@ function colorize(ctx) {
   return COLORS[ctx?.raw?.status]
 }
 
-function visitRun(_event, array){
+function visitRun(_event, array) {
   if (array[0]) {
-    window.open(array[0].element.$context.raw.link);
+    window.open(array[0].element.$context.raw.link)
   }
 }
 
