@@ -13,27 +13,32 @@ defmodule Dashy.Fetcher do
   @starting_page 1
   @minimum_results_number 1000
 
-  def update_workflows(repo_name, opts \\ []) do
+  def update_workflows(repo, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowsFetcher)
     save_function = &Workflows.create_or_update/1
+    repo_name = repo_name(repo)
+    attrs = %{repository_id: repo.id}
 
-    save_results(fetcher_module.get(repo_name), save_function)
+    save_results(fetcher_module.get(repo_name), save_function, attrs)
   end
 
-  def update_workflow_runs(repo_name, branch, opts \\ []) do
+  def update_workflow_runs(repo, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowRunsFetcher)
     save_function = &WorkflowRuns.create_or_update/1
+    repo_name = repo_name(repo)
 
     fetch_workflow_runs_and_save(
       repo_name,
       fetcher_module,
       save_function,
-      %{branch: branch, page: @starting_page},
+      %{branch: repo.branch, page: @starting_page},
       @minimum_results_number
     )
   end
 
-  def update_all_workflow_run_jobs(repo_name) do
+  def update_all_workflow_run_jobs(repo) do
+    repo_name = repo_name(repo)
+
     from(
       r in WorkflowRuns.WorkflowRun,
       select: [:external_id]
@@ -51,7 +56,7 @@ defmodule Dashy.Fetcher do
     save_results(fetcher_module.get(repo_name, workflow_run.external_id), save_function)
   end
 
-  defp save_results(results, save_function) do
+  defp save_results(results, save_function, attrs \\ %{}) do
     case results do
       {:error, error} ->
         [{:fetch_error, error}]
@@ -59,7 +64,7 @@ defmodule Dashy.Fetcher do
       %{body: results} ->
         results
         |> Enum.map(fn result ->
-          save_function.(result)
+          save_function.(Map.merge(result, attrs))
         end)
     end
   end
@@ -103,4 +108,6 @@ defmodule Dashy.Fetcher do
           )
     end
   end
+
+  defp repo_name(repo), do: "#{repo.user}/#{repo.name}"
 end

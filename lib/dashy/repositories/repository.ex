@@ -2,10 +2,14 @@ defmodule Dashy.Repositories.Repository do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Dashy.Workflows.Workflow
+
   schema "repositories" do
     field :name, :string
     field :user, :string
     field :branch, :string
+
+    has_many :workflows, Workflow
 
     timestamps()
   end
