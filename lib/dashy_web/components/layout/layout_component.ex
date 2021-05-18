@@ -1,6 +1,8 @@
 defmodule DashyWeb.Components.Layout do
   use Surface.LiveComponent
 
+  alias Dashy.Fetchers.GenServerFetcher
+
   alias DashyWeb.Router.Helpers, as: Routes
 
   alias Dashy.Repositories
@@ -29,17 +31,13 @@ defmodule DashyWeb.Components.Layout do
           placeholder="Search or jump to..."
           :class="{ 'bg-white w-80 text-black': focus, 'w-40 bg-transparent text-white': !(focus) }"
           x-on:focus="focus = true"
-          x-on:blur="
-            focus = false;
-            $nextTick(() => {$dispatch('input', {bubbles: true})})
-          "
           />
 
       </Form>
       <Button class="ml-4" click="open-modal">New Repository</Button>
       <ul :if={{(@repos |> Enum.count() > 0) && @show}} class="absolute w-80 shadow-md top-10">
         <li :for={{repo <- @repos}} class="text-gray-600 bg-white border-b-2 p-4">
-          <a href="{{Routes.repo_path(@socket, :index, repo.name)}}">{{repo.name}}</a></li>
+          <a href="{{Routes.repo_path(@socket, :index, repo.user, repo.name)}}">{{repo.user}}/{{repo.name}}</a></li>
       </ul>
       <Modal :if={{@modal}}>
         <Form for={{:new_repo}} submit="create-repo" opts={{ autocomplete: "off" }}>
@@ -76,7 +74,16 @@ defmodule DashyWeb.Components.Layout do
   def handle_event("create-repo", %{"new_repo" => params}, socket) do
     case Repositories.create_repository(params) do
       {:ok, repository} ->
-        {:noreply, redirect(socket, to: Routes.repo_path(socket, :index, repository.name))}
+        {:ok, pid} =
+          DynamicSupervisor.start_child(
+            Dashy.FetcherSupervisor,
+            {Dashy.Fetchers.GenServerFetcher, name: String.to_atom("repo_#{repository.id}")}
+          )
+
+        GenServerFetcher.fetch(pid, repository)
+
+        {:noreply,
+         redirect(socket, to: Routes.repo_path(socket, :index, repository.user, repository.name))}
 
       {:error, changeset} ->
         socket = assign(socket, errors: changeset.errors)

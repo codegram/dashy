@@ -14,9 +14,10 @@ defmodule Dashy.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Dashy.PubSub},
       # Start the Endpoint (http/https)
-      DashyWeb.Endpoint
+      DashyWeb.Endpoint,
       # Start a worker by calling: Dashy.Worker.start_link(arg)
       # {Dashy.Worker, arg}
+      {DynamicSupervisor, strategy: :one_for_one, name: Dashy.FetcherSupervisor}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
