@@ -30,7 +30,7 @@ defmodule Dashy.Charts.WorkflowParts do
       |> Enum.to_list()
       |> Enum.sort_by(fn {_, runs} ->
         recent = runs |> List.last()
-        -DateTime.diff(recent.completed_at, recent.started_at)
+        -calculate_seconds(recent.completed_at, recent.started_at)
       end)
 
     parts =
@@ -52,7 +52,7 @@ defmodule Dashy.Charts.WorkflowParts do
         data:
           run
           |> Enum.map(fn run ->
-            seconds = DateTime.diff(run.completed_at, run.started_at)
+            seconds = calculate_seconds(run.completed_at, run.started_at)
 
             %Part{
               name: part_name,
@@ -66,6 +66,10 @@ defmodule Dashy.Charts.WorkflowParts do
       | build_data(grouped_runs, colors)
     ]
   end
+
+  defp calculate_seconds(nil, _), do: 0
+  defp calculate_seconds(_, nil), do: 0
+  defp calculate_seconds(a, b), do: DateTime.diff(a, b)
 
   defp link_from(%{external_id: id}),
     do: "https://github.com/decidim/decidim/actions/runs/#{id}"

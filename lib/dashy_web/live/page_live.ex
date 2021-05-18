@@ -1,39 +1,41 @@
 defmodule DashyWeb.PageLive do
-  use DashyWeb, :live_view
+  use Surface.LiveView
+
+  alias DashyWeb.Router.Helpers, as: Routes
+
+  alias Dashy.Repositories
+
+  alias DashyWeb.Components.Layout
+  alias DashyWeb.Components.Card
+  alias DashyWeb.Components.CardContent
+  alias DashyWeb.Components.CardTitle
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, query: "", results: %{})}
+    repos = Repositories.list_repositories() |> Enum.take(10)
+    {:ok, assign(socket, repos: repos)}
   end
 
   @impl true
-  def handle_event("suggest", %{"q" => query}, socket) do
-    {:noreply, assign(socket, results: search(query), query: query)}
-  end
-
-  @impl true
-  def handle_event("search", %{"q" => query}, socket) do
-    case search(query) do
-      %{^query => vsn} ->
-        {:noreply, redirect(socket, external: "https://hexdocs.pm/#{query}/#{vsn}")}
-
-      _ ->
-        {:noreply,
-         socket
-         |> put_flash(:error, "No dependencies found matching \"#{query}\"")
-         |> assign(results: %{}, query: query)}
-    end
-  end
-
-  defp search(query) do
-    if not DashyWeb.Endpoint.config(:code_reloader) do
-      raise "action disabled when not in development"
-    end
-
-    for {app, desc, vsn} <- Application.started_applications(),
-        app = to_string(app),
-        String.starts_with?(app, query) and not List.starts_with?(desc, ~c"ERTS"),
-        into: %{},
-        do: {app, vsn}
+  def render(assigns) do
+    ~H"""
+    <Layout id="header">
+      <div class="max-w-6xl p-4 mx-auto">
+        <Card>
+          <CardTitle title="Repos" subtitle="Here you can see some awesome repos" />
+          <CardContent>
+            <ul>
+              <li :for={{ repo <- @repos }} class="mb-4">
+                <a href="{{Routes.repo_path(@socket, :index, repo.user, repo.name)}}">
+                  <span class="inline-block bg-gray-300-500 rounded">{{repo.user}}/{{repo.name}}</span>
+                  <span class="text-blue-500 bg-blue-200 inline-block px-2 rounded-md text-sm">{{repo.branch}}</span>
+                </a>
+              </li>
+            </ul>
+          </CardContent>
+        </Card>
+      </div>
+    </Layout>
+    """
   end
 end
