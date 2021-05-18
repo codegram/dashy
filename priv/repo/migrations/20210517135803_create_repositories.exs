@@ -3,8 +3,9 @@ defmodule Dashy.Repo.Migrations.CreateRepositories do
 
   def change do
     create table(:repositories) do
-      add :name, :string
-      add :user, :string
+      add :name, :string, null: false
+      add :user, :string, null: false
+      add :branch, :string, null: false
 
       timestamps()
     end

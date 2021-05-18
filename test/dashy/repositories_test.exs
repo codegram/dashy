@@ -6,9 +6,9 @@ defmodule Dashy.RepositoriesTest do
   describe "repositories" do
     alias Dashy.Repositories.Repository
 
-    @valid_attrs %{name: "some name", url: "some url"}
-    @update_attrs %{name: "some updated name", url: "some updated url"}
-    @invalid_attrs %{name: nil, url: nil}
+    @valid_attrs %{name: "some name", user: "some user"}
+    @update_attrs %{name: "some updated name", user: "some updated user"}
+    @invalid_attrs %{name: nil, user: nil}
 
     def repository_fixture(attrs \\ %{}) do
       {:ok, repository} =
@@ -32,7 +32,7 @@ defmodule Dashy.RepositoriesTest do
     test "create_repository/1 with valid data creates a repository" do
       assert {:ok, %Repository{} = repository} = Repositories.create_repository(@valid_attrs)
       assert repository.name == "some name"
-      assert repository.url == "some url"
+      assert repository.user == "some user"
     end
 
     test "create_repository/1 with invalid data returns error changeset" do
@@ -46,7 +46,7 @@ defmodule Dashy.RepositoriesTest do
                Repositories.update_repository(repository, @update_attrs)
 
       assert repository.name == "some updated name"
-      assert repository.url == "some updated url"
+      assert repository.user == "some updated user"
     end
 
     test "update_repository/2 with invalid data returns error changeset" do

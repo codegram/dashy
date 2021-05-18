@@ -56,6 +56,12 @@ defmodule DashyWeb.Components.Layout do
               <input type="text" name="new_repo[name]" id="name" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="github repository name">
             </div>
           </div>
+          <div class="mt-4">
+            <label for="branch" class="block text-sm font-medium text-gray-700">Branch</label>
+            <div class="mt-1">
+              <input type="text" name="new_repo[branch]" id="branch" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="repository branch">
+            </div>
+          </div>
           <div class="mt-6 flex flex-row justify-end ">
             <Button click="close-modal" color="alert" background="secondary">Cancel</Button>
             <Button type="submit" class="ml-4" color="primary" background="primary">Create</Button>
