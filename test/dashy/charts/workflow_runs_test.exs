@@ -4,21 +4,19 @@ defmodule Dashy.Charts.WorkflowRunsTest do
   describe "runs/1" do
     test "lists all runs" do
       sha = "1"
-      run = insert(:workflow_run, head_sha: sha, created_at: ~U[2021-05-16 09:00:00Z])
-      run2 = insert(:workflow_run, head_sha: sha, created_at: ~U[2021-05-16 09:00:00Z])
 
-      insert(:workflow_run_job,
-        workflow_run: run,
+      insert(:workflow_run,
         head_sha: sha,
+        created_at: ~U[2021-05-16 09:00:00Z],
         started_at: ~U[2021-05-16 09:00:00Z],
         completed_at: ~U[2021-05-16 10:00:00Z],
         status: "completed",
         conclusion: "success"
       )
 
-      insert(:workflow_run_job,
-        workflow_run: run2,
+      insert(:workflow_run,
         head_sha: sha,
+        created_at: ~U[2021-05-16 09:00:00Z],
         started_at: ~U[2021-05-16 09:00:00Z],
         completed_at: ~U[2021-05-16 11:00:00Z],
         status: "completed",
@@ -37,21 +35,19 @@ defmodule Dashy.Charts.WorkflowRunsTest do
 
     test "handles the state correctly" do
       sha = "1"
-      run = insert(:workflow_run, head_sha: sha, created_at: ~U[2021-05-16 09:00:00Z])
-      run2 = insert(:workflow_run, head_sha: sha, created_at: ~U[2021-05-16 09:00:00Z])
 
-      insert(:workflow_run_job,
-        workflow_run: run,
+      insert(:workflow_run,
         head_sha: sha,
+        created_at: ~U[2021-05-16 09:00:00Z],
         started_at: ~U[2021-05-16 09:00:00Z],
         completed_at: ~U[2021-05-16 10:00:00Z],
         status: "completed",
         conclusion: "success"
       )
 
-      insert(:workflow_run_job,
-        workflow_run: run2,
+      insert(:workflow_run,
         head_sha: sha,
+        created_at: ~U[2021-05-16 09:00:00Z],
         started_at: ~U[2021-05-16 09:00:00Z],
         completed_at: ~U[2021-05-16 11:00:00Z],
         status: "completed",
