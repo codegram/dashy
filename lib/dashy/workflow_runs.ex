@@ -17,18 +17,22 @@ defmodule Dashy.WorkflowRuns do
   end
 
   def update_from_jobs(external_id) do
-    attrs =
-      from(
-        j in WorkflowRunJob,
-        select: %{
-          started_at: min(j.started_at),
-          completed_at: max(j.completed_at)
-        },
-        where: j.workflow_run_id == ^external_id,
-        group_by: j.workflow_run_id
-      )
-      |> Repo.one()
+    from(
+      j in WorkflowRunJob,
+      select: %{
+        started_at: min(j.started_at),
+        completed_at: max(j.completed_at)
+      },
+      where: j.workflow_run_id == ^external_id,
+      group_by: j.workflow_run_id
+    )
+    |> Repo.one()
+    |> update_if_exists(external_id)
+  end
 
+  defp update_if_exists(nil, _), do: nil
+
+  defp update_if_exists(attrs, external_id) do
     get_by_external_id(external_id)
     |> WorkflowRun.changeset(attrs)
     |> Repo.update()

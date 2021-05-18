@@ -36,12 +36,22 @@ defmodule Dashy.Fetchers.WorkflowRunsFetcher do
 
   defp parse_workflow_run(%{"head_branch" => branch} = workflow_run, branch) do
     workflow_run
+    |> uniq_sha_for_scheduled_runs()
     |> Map.take(@expected_fields)
     |> Map.new(fn {k, v} -> {String.to_atom(rename_key(k)), v} end)
     |> Map.merge(%{metadata: workflow_run})
   end
 
   defp parse_workflow_run(_workflow_run, _branch), do: nil
+
+  defp uniq_sha_for_scheduled_runs(
+         %{"event" => "schedule", "head_sha" => head_sha, "id" => external_id} = workflow_run
+       ) do
+    workflow_run
+    |> Map.merge(%{"head_sha" => "#{head_sha}-#{external_id}"})
+  end
+
+  defp uniq_sha_for_scheduled_runs(workflow_run), do: workflow_run
 
   defp rename_key("id"), do: "external_id"
   defp rename_key(key), do: key
