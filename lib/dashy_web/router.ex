@@ -19,7 +19,7 @@ defmodule DashyWeb.Router do
 
     live "/", PageLive, :index
     live "/ui", UILive, :index
-    live "/repo/:user/:id", RepoLive, :index
+    live "/repo/:user/:name", RepoLive, :index
   end
 
   # Other scopes may use custom stacks.

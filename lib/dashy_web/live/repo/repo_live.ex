@@ -11,12 +11,12 @@ defmodule DashyWeb.RepoLive do
   alias Dashy.Charts.Helpers
 
   @impl true
-  def mount(%{"id" => id, "user" => user}, _session, socket) do
+  def mount(%{"name" => name, "user" => user}, _session, socket) do
     Process.send_after(self(), :load_runs, 1000)
     Process.send_after(self(), :load_parts, 1000)
     parts = []
     colors = []
-    repo = "#{user}/#{id}"
+    repo = Dashy.Repositories.get_repository_by_user_and_name(user, name)
 
     {:ok, socket |> assign(repo: repo, parts: parts, colors: colors, uses_fake_data: false)}
   end
@@ -26,7 +26,7 @@ defmodule DashyWeb.RepoLive do
     ~H"""
     <Layout id="header">
       <div class="max-w-6xl p-4 mx-auto">
-        <h1>Repo: {{@repo}}</h1>
+        <h1>Repo: {{@repo.user}} / {{@repo.name}}</h1>
         <Card>
           <CardTitle title="Last runs" subtitle="The last runs of the tests suite for this repository." />
           <CardContent>
@@ -40,7 +40,7 @@ defmodule DashyWeb.RepoLive do
           <CardContent>
             <div class="grid grid-cols-12 gap-4">
               <div class="col-span-9">
-                <Parts list="parts_list" />
+                <Parts list="parts_list"/>
               </div>
               <div class="col-span-3">
                 <ul class="h-96 overflow-auto" id="parts_list">
@@ -70,13 +70,14 @@ defmodule DashyWeb.RepoLive do
 
   @impl true
   def handle_info(:load_runs, socket) do
-    runs = get_runs_module(socket).runs()
+    runs = get_runs_module(socket).runs(socket.assigns.repo)
     {:noreply, socket |> push_event("load-runs", %{data: runs})}
   end
 
   @impl true
   def handle_info(:load_parts, socket) do
-    %{parts: parts, data: data, colors: colors} = get_parts_module(socket).parts
+    %{parts: parts, data: data, colors: colors} =
+      get_parts_module(socket).parts(socket.assigns.repo)
 
     {:noreply,
      socket |> assign(parts: parts, colors: colors) |> push_event("load-parts", %{data: data})}

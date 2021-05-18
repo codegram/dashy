@@ -32,6 +32,7 @@ export const config = {
   type: "bar",
   data: buildLabels([]),
   options: {
+    animation: false,
     scales: {
       x: {
         title: {

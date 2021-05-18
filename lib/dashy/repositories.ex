@@ -47,6 +47,15 @@ defmodule Dashy.Repositories do
     |> Repo.all()
   end
 
+  def get_repository_by_user_and_name(user, name) do
+    from(
+      r in Repository,
+      where: r.user == ^user,
+      where: r.name == ^name
+    )
+    |> Repo.one()
+  end
+
   @doc """
   Creates a repository.
 

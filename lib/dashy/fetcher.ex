@@ -11,7 +11,7 @@ defmodule Dashy.Fetcher do
   alias Dashy.Repo
 
   @starting_page 1
-  @minimum_results_number 1000
+  @minimum_results_number 300
 
   def update_workflows(repo, opts \\ []) do
     fetcher_module = Keyword.get(opts, :with, WorkflowsFetcher)
