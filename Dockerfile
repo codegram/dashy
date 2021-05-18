@@ -1,11 +1,11 @@
 FROM elixir:1.11-alpine AS build
 
-EXPOSE 4000
+EXPOSE 5000
 ARG databaseUrl=
 ARG secretKeyBase=
 ARG githubToken=
 
-ENV PORT=4000
+ENV PORT=5000
 ENV MIX_ENV=prod
 ENV DATABASE_URL=$databaseUrl
 ENV SECRET_KEY_BASE=$secretKeyBase
