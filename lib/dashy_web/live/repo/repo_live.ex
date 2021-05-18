@@ -1,12 +1,13 @@
 defmodule DashyWeb.RepoLive do
   use Surface.LiveView
 
+  alias DashyWeb.Components.Layout
   alias DashyWeb.Components.Card
   alias DashyWeb.Components.CardContent
   alias DashyWeb.Components.CardTitle
-
   alias DashyWeb.Components.Charts.LastRuns
   alias DashyWeb.Components.Charts.Parts
+
   alias Dashy.Charts.Helpers
 
   @impl true
@@ -23,32 +24,34 @@ defmodule DashyWeb.RepoLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="max-w-6xl p-4 mx-auto">
-      <h1>Repo: {{@repo}}</h1>
-      <Card>
-        <CardTitle title="Last runs" subtitle="The last runs of the tests suite for this repository." />
-        <CardContent>
-          <div>
-            <LastRuns />
-          </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardTitle title="Workflows" subtitle="The running time for each workflow of this tests suite." />
-        <CardContent>
-          <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-9">
-              <Parts list="parts_list" />
+    <Layout id="header">
+      <div class="max-w-6xl p-4 mx-auto">
+        <h1>Repo: {{@repo}}</h1>
+        <Card>
+          <CardTitle title="Last runs" subtitle="The last runs of the tests suite for this repository." />
+          <CardContent>
+            <div>
+              <LastRuns />
             </div>
-            <div class="col-span-3">
-              <ul class="h-96 overflow-auto" id="parts_list">
-                <li class="part_name" data-slug="{{part}}" style="color: {{Helpers.build_style_color(@colors |> Enum.at(index))}}" :for={{ {part, index} <- @parts |> Enum.with_index()}}>{{part}}</li>
-              </ul>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardTitle title="Workflows" subtitle="The running time for each workflow of this tests suite." />
+          <CardContent>
+            <div class="grid grid-cols-12 gap-4">
+              <div class="col-span-9">
+                <Parts list="parts_list" />
+              </div>
+              <div class="col-span-3">
+                <ul class="h-96 overflow-auto" id="parts_list">
+                  <li class="part_name" data-slug="{{part}}" style="color: {{Helpers.build_style_color(@colors |> Enum.at(index))}}" :for={{ {part, index} <- @parts |> Enum.with_index()}}>{{part}}</li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
+          </CardContent>
+        </Card>
+      </div>
+    </Layout>
     """
   end
 
