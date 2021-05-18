@@ -1,6 +1,6 @@
 defmodule Dashy.Charts.Helpers do
   def generate_colors(total) do
-    0..total
+    0..(total - 1)
     |> Enum.map(fn index ->
       %{
         h: "#{360 / total * index}",

@@ -4,7 +4,9 @@ defmodule GitHubClient do
       Authorization: "token #{Application.get_env(:dashy, Dashy.Fetcher)[:token]}"
     ]
 
-    case HTTPoison.get(url, headers) do
+    options = [recv_timeout: 30_000]
+
+    case HTTPoison.get(url, headers, options) do
       {:ok, %{status_code: 404} = response} -> {:error, response}
       {:ok, %{status_code: 200} = response} -> {:ok, response}
       {:error, _} = err -> err

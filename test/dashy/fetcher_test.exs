@@ -26,7 +26,9 @@ defmodule Dashy.FetcherTest do
     test "fetches workflow_runs from the API and saves them to the DB" do
       assert [] == Repo.all(WorkflowRun)
 
-      Fetcher.update_workflow_runs("my/repo", with: Dashy.TestFetchers.WorkflowRunsFetcher)
+      Fetcher.update_workflow_runs("my/repo", "my_branch",
+        with: Dashy.TestFetchers.WorkflowRunsFetcher
+      )
 
       [workflow_run | _] = workflow_runs = Repo.all(WorkflowRun)
       assert 2 == workflow_runs |> Enum.count()
@@ -37,8 +39,10 @@ defmodule Dashy.FetcherTest do
     end
 
     test "handles errors" do
-      assert [{:fetch_error, "whoops in 1 of my/repo, branch develop"}] =
-               Fetcher.update_workflow_runs("my/repo", with: Dashy.TestFetchers.ErroredFetcher)
+      assert [{:fetch_error, "whoops in 1 of my/repo, branch my_branch"}] =
+               Fetcher.update_workflow_runs("my/repo", "my_branch",
+                 with: Dashy.TestFetchers.ErroredFetcher
+               )
     end
   end
 

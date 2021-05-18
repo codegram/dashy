@@ -73,11 +73,11 @@ defmodule Dashy.Charts.WorkflowRuns do
       Enum.any?(list, fn e -> e == "cancelled" end) ->
         "cancelled"
 
-      list |> Enum.uniq() == ["success"] ->
+      (list |> Enum.uniq()) -- ["skipped", "success"] == [] ->
         "success"
 
       true ->
-        "pending"
+        "other"
     end
   end
 end
