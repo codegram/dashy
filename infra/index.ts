@@ -68,6 +68,7 @@ const dockerImage = docker.buildImage({
 
 const createJob = k8s.createJob({
   name: "dashy-create-db",
+  command: ["bin/dashy"],
   containerArgs: ["eval", '"Dashy.Release.db_create"'],
   env,
   provider: kubernetesProvider,
@@ -76,6 +77,7 @@ const createJob = k8s.createJob({
 
 const migrateJob = k8s.createJob({
   name: "dashy-migrate-db",
+  command: ["bin/dashy"],
   containerArgs: ["eval", '"Dashy.Release.db_migrate"'],
   env,
   provider: kubernetesProvider,
