@@ -2,13 +2,16 @@ const defaultTheme = require("tailwindcss/defaultTheme")
 
 module.exports = {
   plugins: [require("@tailwindcss/forms")],
-  purge: [
-    "../**/*.leex",
-    "../**/*.eex",
-    "../**/*.ex",
-    "../**/*.exs",
-    "./**/*.js",
-  ],
+  purge: {
+    enabled: false,
+    content: [
+      "../**/*.leex",
+      "../**/*.eex",
+      "../**/*.ex",
+      "../**/*.exs",
+      "./**/*.js",
+    ],
+  },
   theme: {
     extend: {
       maxWidth: {

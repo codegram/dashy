@@ -1,0 +1,7 @@
+config:
+  dashy:clusterStackRef: codegram/genesis-cluster/prod
+  dashy:githubToken:
+    secure: AAABAN9zHMuBKorD6yAu8l9KnPH6XRTwml49tcUnZFmSyOTg3Z/hxdkk+e1+QNdUCopgvG5p1JDGN2fXgh45TS5iqYJL3aI9
+  dashy:gcpProjectId: labs-260007
+  gcp:project: labs-260007
+  gcp:zone: europe-west3-a

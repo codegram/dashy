@@ -13,7 +13,7 @@ config :dashy, DashyWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [
     scheme: "https",
-    host: System.get_env("HOST") || "#{System.get_env("HEROKU_APP_NAME")}.herokuapp.com",
+    host: System.get_env("HOST") || "dashy.codegram.io",
     port: 443
   ],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
