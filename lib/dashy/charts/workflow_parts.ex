@@ -20,13 +20,14 @@ defmodule Dashy.Charts.WorkflowParts do
         join: r in WorkflowRun,
         on: r.external_id == j.workflow_run_id,
         select: %{
-          name: r.name,
-          started_at: j.started_at,
-          completed_at: j.completed_at,
-          external_id: j.external_id
+          name: fragment("array_agg(?)", r.name),
+          started_at: min(j.started_at),
+          completed_at: max(j.completed_at),
+          external_id: r.external_id
         },
-        where: j.started_at > ^minimum_start_time,
-        order_by: [r.name, j.started_at]
+        group_by: r.external_id,
+        where: r.created_at > ^minimum_start_time,
+        order_by: [min(r.workflow_id), min(r.created_at)]
       )
       |> Repo.all()
       |> Enum.group_by(fn data -> data.name end)
@@ -38,7 +39,7 @@ defmodule Dashy.Charts.WorkflowParts do
 
     parts =
       grouped_run_jobs
-      |> Enum.map(fn {name, _} -> name end)
+      |> Enum.map(fn {name, _} -> List.last(name) end)
 
     colors = Helpers.generate_colors(parts |> Enum.count())
 
