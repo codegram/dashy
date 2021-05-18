@@ -10,6 +10,8 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
     field :conclusion, :string
     field :metadata, :map
     field :head_sha, :string
+    field :started_at, :utc_datetime
+    field :completed_at, :utc_datetime
 
     belongs_to :workflow, Dashy.Workflows.Workflow, references: :external_id
     timestamps(inserted_at: :created_at)
@@ -28,7 +30,9 @@ defmodule Dashy.WorkflowRuns.WorkflowRun do
       :conclusion,
       :workflow_id,
       :metadata,
-      :head_sha
+      :head_sha,
+      :started_at,
+      :completed_at
     ])
     |> validate_required([
       :external_id,
