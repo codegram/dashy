@@ -2,13 +2,20 @@ import toTime from "../utils.js"
 
 const COLORS = {
   pending: "#FBBF24CC",
-  success: "#3333FFCC",
+  success: "#28A745CC",
   error: "#FF3333CC",
   cancelled: "#999999CC",
 }
 function colorize(ctx) {
   return COLORS[ctx?.raw?.status]
 }
+
+function visitRun(_event, array){
+  if (array[0]) {
+    window.open(array[0].element.$context.raw.link);
+  }
+}
+
 export function buildLabels(data) {
   return {
     labels: data.map((run) => run.time),
@@ -57,5 +64,6 @@ export const config = {
       xAxisKey: "minutes",
       yAxisKey: "minutes",
     },
+    onClick: visitRun,
   },
 }
