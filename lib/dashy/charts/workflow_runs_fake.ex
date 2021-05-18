@@ -1,7 +1,7 @@
 defmodule Dashy.Charts.WorkflowRunsFake do
   alias Dashy.Charts.Run
 
-  def runs(opts \\ []) do
+  def runs(_repo, opts \\ []) do
     count = Keyword.get(opts, :count, 50)
     fake_runs(DateTime.now!("Etc/UTC"), [], count)
   end

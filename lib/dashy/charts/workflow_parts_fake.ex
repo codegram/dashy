@@ -1,7 +1,7 @@
 defmodule Dashy.Charts.WorkflowPartsFake do
   alias Dashy.Charts.Helpers
 
-  def parts(opts \\ []) do
+  def parts(_repo, opts \\ []) do
     count = Keyword.get(opts, :count, 50)
     fake_parts(DateTime.now!("Etc/UTC"), [], count)
   end
