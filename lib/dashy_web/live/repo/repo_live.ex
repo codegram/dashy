@@ -10,13 +10,14 @@ defmodule DashyWeb.RepoLive do
   alias Dashy.Charts.Helpers
 
   @impl true
-  def mount(%{"id" => id}, _session, socket) do
+  def mount(%{"id" => id, "user" => user}, _session, socket) do
     Process.send_after(self(), :load_runs, 1000)
     Process.send_after(self(), :load_parts, 1000)
     parts = []
     colors = []
+    repo = "#{user}/#{id}"
 
-    {:ok, socket |> assign(repo: id, parts: parts, colors: colors, uses_fake_data: false)}
+    {:ok, socket |> assign(repo: repo, parts: parts, colors: colors, uses_fake_data: false)}
   end
 
   @impl true
