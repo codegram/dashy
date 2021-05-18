@@ -10,7 +10,7 @@
     <title>API Reference — dashy v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-1d678cff57.js"></script>
+    <script src="dist/sidebar_items-8f605d3c63.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -185,6 +185,22 @@ and business logic.</p></div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="Dashy.Repositories.html">Dashy.Repositories</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>The Repositories context.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Dashy.Repositories.Repository.html">Dashy.Repositories.Repository</a>
+
+  </div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="Dashy.Schema.html">Dashy.Schema</a>
 
   </div>
@@ -252,7 +268,7 @@ as controllers, views, channels and so on.</p></div>
   <a href="#properties" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Properties
 </h2>
-<ul><li><strong>color</strong> <em>:string, default: &quot;primary&quot;</em> - The color of the button.</li><li><strong>background</strong> <em>:string, default: &quot;primary&quot;</em> - The class of the button.</li><li><strong>value</strong> <em>:string, required: false</em> - Value emitted by the button.</li></ul><h2 id="slots" class="section-heading">
+<ul><li><strong>class</strong> <em>:css_class, required: false</em> - Extra Css classes.</li><li><strong>type</strong> <em>:string, default: &quot;button&quot;</em> - The type of the button.</li><li><strong>color</strong> <em>:string, default: &quot;primary&quot;</em> - The color of the button.</li><li><strong>background</strong> <em>:string, default: &quot;primary&quot;</em> - The class of the button.</li><li><strong>value</strong> <em>:string, required: false</em> - Value emitted by the button.</li></ul><h2 id="slots" class="section-heading">
   <a href="#slots" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Slots
 </h2>
@@ -330,6 +346,37 @@ as controllers, views, channels and so on.</p></div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="DashyWeb.Components.Layout.html">DashyWeb.Components.Layout</a>
+
+  </div>
+
+    <div class="summary-synopsis"><h2 id="properties-4" class="section-heading">
+  <a href="#properties-4" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Properties
+</h2>
+<ul><li><strong>id</strong> <em>:string, required: true</em> - The id of the live component (required by LiveView for stateful components).
+.</li><li><strong>repos</strong> <em>:list, required: false, default: []</em></li><li><strong>show</strong> <em>:boolean, default: false</em></li><li><strong>modal</strong> <em>:boolean, default: false</em></li></ul><h2 id="slots-3" class="section-heading">
+  <a href="#slots-3" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Slots
+</h2>
+<ul><li><strong>default, required: true</strong> - The content of the Layout.</li></ul></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="DashyWeb.Components.Modal.html">DashyWeb.Components.Modal</a>
+
+  </div>
+
+    <div class="summary-synopsis"><h2 id="slots-4" class="section-heading">
+  <a href="#slots-4" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Slots
+</h2>
+<ul><li><strong>default, required: true</strong> - The content of the Modal.</li></ul></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="DashyWeb.Endpoint.html">DashyWeb.Endpoint</a>
 
   </div>
@@ -362,6 +409,13 @@ as controllers, views, channels and so on.</p></div>
 </div>
 <div class="summary-row">
   <div class="summary-signature">
+    <a href="DashyWeb.HeaderLive.html">DashyWeb.HeaderLive</a>
+
+  </div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
     <a href="DashyWeb.LayoutView.html">DashyWeb.LayoutView</a>
 
   </div>
@@ -380,8 +434,8 @@ as controllers, views, channels and so on.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><h2 id="properties-4" class="section-heading">
-  <a href="#properties-4" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+    <div class="summary-synopsis"><h2 id="properties-5" class="section-heading">
+  <a href="#properties-5" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Properties
 </h2>
 <ul><li><strong>id</strong> <em>:string, required: true</em> - The id of the live view.</li><li><strong>session</strong> <em>:map</em> - The request info necessary for the view, such as params, cookie session info, etc.
@@ -419,8 +473,8 @@ when the client connects, or reconnects to the stateful view.
 
   </div>
 
-    <div class="summary-synopsis"><h2 id="properties-5" class="section-heading">
-  <a href="#properties-5" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+    <div class="summary-synopsis"><h2 id="properties-6" class="section-heading">
+  <a href="#properties-6" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Properties
 </h2>
 <ul><li><strong>id</strong> <em>:string, required: true</em> - The id of the live view.</li><li><strong>session</strong> <em>:map</em> - The request info necessary for the view, such as params, cookie session info, etc.

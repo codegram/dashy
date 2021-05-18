@@ -11,6 +11,8 @@ Dashy.Fetchers.WorkflowRunJobsFetcher.html
 Dashy.Fetchers.WorkflowRunsFetcher.html
 Dashy.Fetchers.WorkflowsFetcher.html
 Dashy.Repo.html
+Dashy.Repositories.Repository.html
+Dashy.Repositories.html
 Dashy.Schema.html
 Dashy.WorkflowRunJobs.WorkflowRunJob.html
 Dashy.WorkflowRunJobs.html
@@ -25,10 +27,13 @@ DashyWeb.Components.CardContent.html
 DashyWeb.Components.CardTitle.html
 DashyWeb.Components.Charts.LastRuns.html
 DashyWeb.Components.Charts.Parts.html
+DashyWeb.Components.Layout.html
+DashyWeb.Components.Modal.html
 DashyWeb.Endpoint.html
 DashyWeb.ErrorHelpers.html
 DashyWeb.ErrorView.html
 DashyWeb.Gettext.html
+DashyWeb.HeaderLive.html
 DashyWeb.LayoutView.html
 DashyWeb.PageLive.html
 DashyWeb.RepoLive.html
@@ -49,7 +54,7 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-cefef6fbda.js
-dist/sidebar_items-1d678cff57.js
+dist/search_items-39705bbe23.js
+dist/sidebar_items-8f605d3c63.js
 index.html
 search.html
