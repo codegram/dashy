@@ -4,11 +4,11 @@ defmodule Dashy.Repo.Migrations.CreateRepositories do
   def change do
     create table(:repositories) do
       add :name, :string
-      add :url, :string
+      add :user, :string
 
       timestamps()
     end
 
-    create unique_index(:repositories, [:url])
+    create unique_index(:repositories, [:user, :name], name: :unique_index_repo)
   end
 end

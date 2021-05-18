@@ -4,7 +4,7 @@ defmodule Dashy.Repositories.Repository do
 
   schema "repositories" do
     field :name, :string
-    field :url, :string
+    field :user, :string
 
     timestamps()
   end
@@ -12,7 +12,8 @@ defmodule Dashy.Repositories.Repository do
   @doc false
   def changeset(repository, attrs) do
     repository
-    |> cast(attrs, [:name, :url])
-    |> validate_required([:name, :url])
+    |> cast(attrs, [:name, :user])
+    |> validate_required([:name, :user])
+    |> unique_constraint(:unique_repo, name: :unique_index_repo)
   end
 end
