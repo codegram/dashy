@@ -54,6 +54,7 @@ defmodule Dashy.Fetcher do
     save_function = &WorkflowRunJobs.create_or_update/1
 
     save_results(fetcher_module.get(repo_name, workflow_run.external_id), save_function)
+    WorkflowRuns.update_from_jobs(workflow_run.external_id)
   end
 
   defp save_results(results, save_function, attrs \\ %{}) do
