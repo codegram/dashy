@@ -53,18 +53,6 @@ defmodule DashyWeb.RepoLive do
   end
 
   @impl true
-  def handle_event("toggle-source", _, socket) do
-    uses_fake_data = socket.assigns.uses_fake_data
-
-    with socket <- assign(socket, uses_fake_data: !uses_fake_data),
-         {:noreply, socket} <- handle_event("update-runs", %{}, socket),
-         {:noreply, socket} <- handle_event("update-parts", %{}, socket) do
-      {:noreply, socket}
-    else
-      _ -> {:noreply, socket}
-    end
-  end
-
   def handle_event("update-runs", _, socket) do
     runs = get_runs_module(socket).runs()
     {:noreply, socket |> push_event("load-runs", %{data: runs})}
