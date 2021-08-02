@@ -53,7 +53,7 @@ defmodule Dashy.MixProject do
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:httpoison, "~> 1.8"},
       {:ex_machina, "~> 2.7.0"},
-      {:surface, "~> 0.4.0"}
+      {:surface, "~> 0.5.2"}
     ]
   end
 
